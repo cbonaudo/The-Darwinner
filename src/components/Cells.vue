@@ -26,12 +26,12 @@
         v-on:click="useUpgradeCells(upgradeName,key)"
       >{{ upgradeName }}</button>
     </div>
-    <div class="debug">
+    <!-- <div class="debug">
       <button v-on:click="resetCells">Reset</button>
       <button v-on:click="doubleMulti">Double</button>
       <p>Clicks : {{ clicksNumber }}</p>
       <p>Timer : {{ timer }}</p>
-    </div>
+    </div>-->
   </div>
 </template>
 
