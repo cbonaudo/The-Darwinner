@@ -1,0 +1,27 @@
+<template>
+  <div class="goal">
+    <h2>How to play :</h2>
+    <h3>Part I - Cells</h3>
+    <ul>
+      <li>Divide Cells</li>
+      <li>Buy Upgrades</li>
+      <li>Repeat</li>
+      <li>$$-Profit-$$</li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Goal"
+};
+</script>
+
+<style>
+.goal {
+  text-align: left;
+  position: absolute;
+  right: 5%;
+  top: 0;
+}
+</style>
