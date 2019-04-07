@@ -1,7 +1,7 @@
 <template>
   <div class="goal">
     <h2>How to play :</h2>
-    <h3>Part I - Cells</h3>
+    <h3>Part I - The Cells Era</h3>
     <ul>
       <li>Divide Cells</li>
       <li>Buy Upgrades</li>
