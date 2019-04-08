@@ -4,7 +4,7 @@
     <h3>Part I - The Cells Era</h3>
     <ul>
       <li>Divide Cells</li>
-      <li>Buy Upgrades</li>
+      <li>Buy Upgrades (cost 90% of your cells)</li>
       <li>Repeat</li>
       <li>$$-Profit-$$</li>
     </ul>

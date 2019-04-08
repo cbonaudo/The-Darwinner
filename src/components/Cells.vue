@@ -1,37 +1,35 @@
 <template>
   <div>
-    <h2>Cells</h2>
-    <p>
-      Cells :
-      <span>{{ Math.floor(cellsNumber) }}</span>
-    </p>
-    <p>
-      Division Chance :
-      <span>{{ divisionChance * 100 }} %</span>
+    <h2>
+      <span>{{ Math.floor(cellsNumber) }}</span> Cells
+    </h2>
+    <p v-if="divisionChance > 0">
+      Automatic Division Chance :
+      <span>{{ Math.floor(divisionChance * 100) }} %</span>
       Periodic Multiplier :
-      <span>{{ periodicMultiplier * 100 }} %</span>
+      <span>{{ Math.floor(periodicMultiplier * 100) }} %</span>
     </p>
     <p>
       Current Max Click Multiplier :
-      <span>{{ maxClickMultiplier * 100 }} %</span>
+      <span>{{ Math.floor(maxClickMultiplier * 100) }} %</span>
     </p>
     <button v-on:click="clickCells">Divide</button>
-    <p>Your cells divided by themself and created {{ Math.floor(earnedCellPeriodic) }} new cells !</p>
-    <p>Your intervention divided and created {{ Math.floor(earnedCellClick) }} new cells !</p>
-    <p>You're earning {{ periodicGain }} new cells per second.</p>
+    <p>+ {{ Math.floor(earnedCellPeriodic) }} | + {{ Math.floor(earnedCellClick) }}</p>
+    <p v-if="periodicGain > 0">+ {{ periodicGain }}/sec</p>
+
     <div>
-      <button
-        v-for="(upgradeName, key) in upgradesAvailable"
-        :key="key"
-        v-on:click="useUpgradeCells(upgradeName,key)"
-      >{{ upgradeName }}</button>
+      <div v-for="(upgrade, key) in upgradesAvailable" :key="key">
+        <button v-on:click="useUpgradeCells(upgrade.name,key)">{{ upgrade.name}}</button>
+        <span>{{upgrade.description }}</span>
+      </div>
     </div>
-    <!-- <div class="debug">
-      <button v-on:click="resetCells">Reset</button>
-      <button v-on:click="doubleMulti">Double</button>
+
+    <div class="debug">
+      <!-- <button v-on:click="resetCells">Reset</button>
+      <button v-on:click="doubleMulti">Double</button>-->
       <p>Clicks : {{ clicksNumber }}</p>
       <p>Timer : {{ timer }}</p>
-    </div>-->
+    </div>
   </div>
 </template>
 
@@ -88,6 +86,49 @@ export default {
     },
 
     // -- UPGRADE FUNCTIONS --
+    showUpgradeCells: function() {
+      // Add upgrades if above a certain cellsNumber
+      if (this.cellsNumber > 50 && !this.upgrades["Buff 1"].shown) {
+        this.upgradesAvailable.push({
+          name: "Buff 1",
+          description: "You earn 1 Cell per second"
+        });
+        this.upgrades["Buff 1"].shown = true;
+      }
+      if (
+        this.cellsNumber > 100 &&
+        this.upgrades["Buff 1"].used &&
+        !this.upgrades["Buff 2"].shown
+      ) {
+        this.upgradesAvailable.push({
+          name: "Buff 2",
+          description: "Add 5% to your max click multiplier"
+        });
+        this.upgrades["Buff 2"].shown = true;
+      }
+      if (
+        this.cellsNumber > 1000 &&
+        this.upgrades["Buff 2"].used &&
+        !this.upgrades["Buff 3"].shown
+      ) {
+        this.upgradesAvailable.push({
+          name: "Buff 3",
+          description: "Add 10% to Automatic Division chances"
+        });
+        this.upgrades["Buff 3"].shown = true;
+      }
+      if (
+        this.cellsNumber > 10000 &&
+        this.upgrades["Buff 3"].used &&
+        !this.upgrades["Buff 4"].shown
+      ) {
+        this.upgradesAvailable.push({
+          name: "Buff 4",
+          description: ""
+        });
+        this.upgrades["Buff 4"].shown = true;
+      }
+    },
     useUpgradeCells: function(upgrade, index) {
       switch (upgrade) {
         case "Buff 1":
@@ -106,37 +147,6 @@ export default {
       this.upgradesAvailable.splice(index, 1);
       this.cellsNumber = this.cellsNumber * 0.1;
       this.showUpgradeCells();
-    },
-    showUpgradeCells: function() {
-      // Add upgrades if above a certain cellsNumber
-      if (this.cellsNumber > 50 && !this.upgrades["Buff 1"].shown) {
-        this.upgradesAvailable.push("Buff 1");
-        this.upgrades["Buff 1"].shown = true;
-      }
-      if (
-        this.cellsNumber > 100 &&
-        this.upgrades["Buff 1"].used &&
-        !this.upgrades["Buff 2"].shown
-      ) {
-        this.upgradesAvailable.push("Buff 2");
-        this.upgrades["Buff 2"].shown = true;
-      }
-      if (
-        this.cellsNumber > 1000 &&
-        this.upgrades["Buff 2"].used &&
-        !this.upgrades["Buff 3"].shown
-      ) {
-        this.upgradesAvailable.push("Buff 3");
-        this.upgrades["Buff 3"].shown = true;
-      }
-      if (
-        this.cellsNumber > 10000 &&
-        this.upgrades["Buff 3"].used &&
-        !this.upgrades["Buff 4"].shown
-      ) {
-        this.upgradesAvailable.push("Buff 4");
-        this.upgrades["Buff 4"].shown = true;
-      }
     },
 
     // -- TICK FUNCTIONS --
@@ -160,7 +170,7 @@ export default {
       this.cellsNumber = 1;
 
       this.maxClickMultiplier = 0.05;
-      this.earnedCell = 0;
+      this.earnedCellClick = 0;
 
       this.divisionChance = 0;
       this.periodicMultiplier = 0.05;
@@ -175,7 +185,6 @@ export default {
         "Buff 4": {}
       };
     },
-
     doubleMulti: function() {
       this.maxClickMultiplier *= 2;
     }
@@ -190,5 +199,33 @@ export default {
   position: absolute;
   top: 250px;
   right: 10%;
+}
+
+@-webkit-keyframes fadeOutUp {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+}
+.fadeOutUp {
+  -webkit-animation-name: fadeOutUp;
+  animation-name: fadeOutUp;
 }
 </style>
