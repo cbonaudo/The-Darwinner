@@ -1,8 +1,8 @@
 <template>
-  <div class="header">
+  <div class='header'>
     <h1>ThE DaRwInNeR™</h1>
-    <p class="subtitle">
-      <span>"Evolve this"</span> -
+    <p class='subtitle'>
+      <span>'Evolve this'</span> -
       <span>Version 0.1.0</span> -
       <span>cbonaudo</span>
     </p>
@@ -11,8 +11,8 @@
 
 <script>
 export default {
-  name: "Header"
-};
+  name: 'Header'
+}
 </script>
 
 <style>

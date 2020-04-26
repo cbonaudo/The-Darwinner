@@ -15,8 +15,8 @@
 
 <script>
 export default {
-  name: "Changelog"
-};
+  name: 'Changelog'
+}
 </script>
 
 <style>

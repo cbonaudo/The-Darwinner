@@ -19,14 +19,14 @@
 
     <div>
       <div v-for="(upgrade, key) in upgradesAvailable" :key="key">
-        <button v-on:click="useUpgradeCells(upgrade.name,key)">{{ upgrade.name}}</button>
-        <span>{{upgrade.description }}</span>
+        <button v-on:click="useUpgradeCells(upgrade.name, key)">{{ upgrade.name }}</button>
+        <span>{{ upgrade.description }}</span>
       </div>
     </div>
 
     <div class="debug">
-      <!-- <button v-on:click="resetCells">Reset</button>
-      <button v-on:click="doubleMulti">Double</button>-->
+      <button v-on:click="resetCells">Reset</button>
+      <button v-on:click="doubleMulti">Double</button>
       <p>Clicks : {{ clicksNumber }}</p>
       <p>Timer : {{ timer }}</p>
     </div>
@@ -34,10 +34,11 @@
 </template>
 
 <script>
-export default {
-  name: "Cells",
+import { upgradesClean } from '../data/upgrades'
 
-  // -- VAR --
+export default {
+  name: 'Cells',
+
   data() {
     return {
       // Stats
@@ -55,141 +56,101 @@ export default {
       earnedCellPeriodic: 0,
       // Upgrades
       upgradesAvailable: [],
-      upgrades: { "Buff 1": {}, "Buff 2": {}, "Buff 3": {}, "Buff 4": {} }
-    };
+      upgrades: upgradesClean
+    }
   },
 
-  // -- CREATED --
   created() {
-    setInterval(this.tickActions, 1000);
+    setInterval(this.tickActions, 1000)
   },
 
   methods: {
-    // -- CLICK FUNCTIONS --
+    // -- CLICK FUNCTION --
     clickCells: function(event) {
-      // DEBUG : Increase click counter
-      this.clicksNumber += 1;
-      // Store the starting cell floored
-      const startingCellsNumber = Math.floor(this.cellsNumber);
+      this.clicksNumber += 1
+      const startingCellsNumber = Math.floor(this.cellsNumber)
       // Add some cells (bigger multiplier at the start)
       if (this.cellsNumber < 4) {
-        this.cellsNumber +=
-          Math.random() *
-          (this.cellsNumber * this.maxClickMultiplier * (5 - this.cellsNumber));
+        this.cellsNumber += Math.random() * (this.cellsNumber * this.maxClickMultiplier * (5 - this.cellsNumber))
       } else {
-        this.cellsNumber +=
-          Math.random() * (this.cellsNumber * this.maxClickMultiplier);
+        this.cellsNumber += Math.random() * (this.cellsNumber * this.maxClickMultiplier)
       }
-      // Compare the cells and starting cells to see how much was created
-      this.earnedCellClick = this.cellsNumber - startingCellsNumber;
-      this.showUpgradeCells();
+      this.earnedCellClick = this.cellsNumber - startingCellsNumber
+      this.showUpgrades()
     },
 
-    // -- UPGRADE FUNCTIONS --
-    showUpgradeCells: function() {
+    // -- UPGRADE FUNCTION --
+    showUpgrades: function() {
       // Add upgrades if above a certain cellsNumber
-      if (this.cellsNumber > 50 && !this.upgrades["Buff 1"].shown) {
-        this.upgradesAvailable.push({
-          name: "Buff 1",
-          description: "You earn 1 Cell per second"
-        });
-        this.upgrades["Buff 1"].shown = true;
-      }
-      if (
-        this.cellsNumber > 100 &&
-        this.upgrades["Buff 1"].used &&
-        !this.upgrades["Buff 2"].shown
-      ) {
-        this.upgradesAvailable.push({
-          name: "Buff 2",
-          description: "Add 5% to your max click multiplier"
-        });
-        this.upgrades["Buff 2"].shown = true;
-      }
-      if (
-        this.cellsNumber > 1000 &&
-        this.upgrades["Buff 2"].used &&
-        !this.upgrades["Buff 3"].shown
-      ) {
-        this.upgradesAvailable.push({
-          name: "Buff 3",
-          description: "Add 10% to Automatic Division chances"
-        });
-        this.upgrades["Buff 3"].shown = true;
-      }
-      if (
-        this.cellsNumber > 10000 &&
-        this.upgrades["Buff 3"].used &&
-        !this.upgrades["Buff 4"].shown
-      ) {
-        this.upgradesAvailable.push({
-          name: "Buff 4",
-          description: ""
-        });
-        this.upgrades["Buff 4"].shown = true;
+      this.displayBuff(50, this.upgrades[0])
+      this.displayBuff(1e2, this.upgrades[1])
+      this.displayBuff(1e3, this.upgrades[2])
+      this.displayBuff(1e4, this.upgrades[3])
+    },
+
+    displayBuff(cellTreshold, buff) {
+      if (this.cellsNumber > cellTreshold && !this.buffs[buff.name].shown) {
+        console.log(this.cellsNumber)
+        this.upgradesAvailable.push(buff)
+        this.buffs[buff.name].shown = true
       }
     },
+
     useUpgradeCells: function(upgrade, index) {
       switch (upgrade) {
-        case "Buff 1":
-          this.periodicGain += 1;
-          this.upgrades["Buff 1"].used = true;
-          break;
-        case "Buff 2":
-          this.maxClickMultiplier += 0.05;
-          this.upgrades["Buff 2"].used = true;
-          break;
-        case "Buff 3":
-          this.divisionChance += 0.1;
-          this.upgrades["Buff 3"].used = true;
-          break;
+        case 'More mutliplier':
+          this.maxClickMultiplier += 0.05
+          this.buffs[upgrade].used = true
+          break
+        case 'More Auto-Division':
+          this.divisionChance += 0.1
+          this.buffs[upgrade].used = true
+          break
+        case 'Easier Auto-Division':
+          this.divisionChance += 0.1
+          this.buffs[upgrade].used = true
       }
-      this.upgradesAvailable.splice(index, 1);
-      this.cellsNumber = this.cellsNumber * 0.1;
-      this.showUpgradeCells();
+      this.upgradesAvailable.splice(index, 1)
+      this.cellsNumber = this.cellsNumber * 0.1
+      this.showUpgrades()
     },
 
     // -- TICK FUNCTIONS --
     tickActions: function() {
       // Increase timer
-      this.timer += 1;
+      this.timer += 1
       // Periodic chance to gain a percentage of your cells
       if (Math.random() < this.divisionChance) {
-        this.earnedCellPeriodic = this.cellsNumber * this.periodicMultiplier;
-        this.cellsNumber += this.cellsNumber * this.periodicMultiplier;
+        this.earnedCellPeriodic = this.cellsNumber * this.periodicMultiplier
+        this.cellsNumber += this.cellsNumber * this.periodicMultiplier
       }
       // Periodic gain of cells
-      this.cellsNumber += this.periodicGain;
+      this.cellsNumber += this.periodicGain
     },
 
     // -- DEV FUNCTIONS --
     resetCells: function() {
-      this.timer = 0;
-      this.clicksNumber = 0;
+      this.timer = 0
+      this.clicksNumber = 0
 
-      this.cellsNumber = 1;
+      this.cellsNumber = 1
 
-      this.maxClickMultiplier = 0.05;
-      this.earnedCellClick = 0;
+      this.maxClickMultiplier = 0.05
+      this.earnedCellClick = 0
 
-      this.divisionChance = 0;
-      this.periodicMultiplier = 0.05;
-      this.earnedCellPeriodic = 0;
-      this.periodicGain = 0;
+      this.divisionChance = 0
+      this.periodicMultiplier = 0.05
+      this.earnedCellPeriodic = 0
+      this.periodicGain = 0
 
-      this.upgradesAvailable = [];
-      this.upgrades = {
-        "Buff 1": {},
-        "Buff 2": {},
-        "Buff 3": {},
-        "Buff 4": {}
-      };
+      this.upgradesAvailable = []
+      this.upgrades = upgradesClean
     },
     doubleMulti: function() {
-      this.maxClickMultiplier *= 2;
+      this.maxClickMultiplier *= 2
     }
   }
-};
+}
 </script>
 
 <style>

@@ -8,15 +8,15 @@
 </template>
 
 <script>
-import Goal from "./components/Goal";
-import Header from "./components/Header";
-import Cells from "./components/Cells";
-import Changelog from "./components/Changelog";
+import Goal from './components/Goal'
+import Header from './components/Header'
+import Cells from './components/Cells'
+import Changelog from './components/Changelog'
 
 export default {
-  name: "Global",
+  name: 'Global',
   components: { Goal, Header, Cells, Changelog }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

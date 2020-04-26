@@ -1,5 +1,5 @@
 <template>
-  <div class="goal">
+  <div class='goal'>
     <h2>How to play :</h2>
     <h3>Part I - The Cells Era</h3>
     <ul>
@@ -13,8 +13,8 @@
 
 <script>
 export default {
-  name: "Goal"
-};
+  name: 'Goal'
+}
 </script>
 
 <style>
