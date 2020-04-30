@@ -1,49 +1,52 @@
 <template>
   <div>
-    <Header></Header>
-    <div class="flex-row">
-      <Atoms></Atoms>
-      <!-- <Cells></Cells> -->
+    <div class="flex-row app-container">
+      <div class="flex-col main-window">
+        <Header></Header>
+        <Atoms @clicked="clicks++" ref="atoms"></Atoms>
+        <!-- <Cells></Cells> -->
+      </div>
+      <div class="sidebar">
+        <Goal :era="era"></Goal>
+        <Debug :clicks="clicks" @resetAll="resetAll"></Debug>
+        <Changelog></Changelog>
+      </div>
     </div>
-    <Goal></Goal>
-    <Changelog></Changelog>
   </div>
 </template>
 
 <script>
-import Goal from './components/Goal'
 import Header from './components/Header'
 import Atoms from './components/Atoms'
 import Cells from './components/Cells'
+import Goal from './components/Goal'
+import Debug from './components/Debug'
 import Changelog from './components/Changelog'
 
 export default {
   name: 'Global',
-  components: { Goal, Header, Atoms, Cells, Changelog }
+  data() {
+    return { clicks: 0, era: 1 }
+  },
+  components: { Goal, Debug, Header, Atoms, Cells, Changelog },
+  methods: {
+    resetAll() {
+      this.$refs.atoms.resetAtoms()
+      this.clicks = 0
+    }
+  }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1,
-h2 {
-  font-weight: normal;
+.app-container {
+  margin-left: 30px;
+  margin-right: 30px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.sidebar {
+  align-items: center;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-
-.flex-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+.main-window {
+  flex-grow: 2;
 }
 </style>

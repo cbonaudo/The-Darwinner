@@ -22,4 +22,12 @@ export default {
 .underlined {
   text-decoration: underline;
 }
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
 </style>

@@ -1,10 +1,10 @@
 <template>
-  <div class='header'>
+  <div class="header">
     <h1>ThE DaRwInNeR™</h1>
-    <p class='subtitle'>
+    <p class="subtitle">
       <span>'Evolve this'</span> -
-      <span>Version 0.1.0</span> -
-      <span>cbonaudo</span>
+      <span>Version 0.2.0</span> -
+      <span>github.com/cbonaudo</span>
     </p>
   </div>
 </template>

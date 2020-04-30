@@ -1,14 +1,17 @@
 <template>
   <div class="changelog">
     <h2>Release Notes</h2>
+    <h3>V.0.2.0 - Re-Genesis - 30/04/20</h3>
+    <ul>
+      <li>Add testing</li>
+      <li>Create Atoms Era</li>
+    </ul>
     <h3>V.0.1.0 - Genesis - 07/04/19</h3>
     <ul>
       <li>Create the game</li>
       <li>Find a cool-ass name</li>
-      <li>Create Basic functions</li>
+      <li>Create Cells era</li>
       <li>Deploy the game</li>
-      <li>Pickles</li>
-      <li>Tomatoes</li>
     </ul>
   </div>
 </template>
@@ -21,10 +24,8 @@ export default {
 
 <style>
 .changelog {
-  position: absolute;
   text-align: left;
-  position: absolute;
-  right: 5%;
-  top: 400px;
+  max-height: 200px;
+  overflow-y: scroll;
 }
 </style>

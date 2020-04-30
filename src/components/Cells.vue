@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { upgradesClean } from '../data/upgrades'
+import { upgradesClean } from '../data/upgradesCells'
 
 export default {
   name: 'Cells',
@@ -154,39 +154,4 @@ export default {
 </script>
 
 <style>
-.debug {
-  border: 1px black solid;
-  width: 100px;
-  position: absolute;
-  top: 250px;
-  right: 10%;
-}
-
-@-webkit-keyframes fadeOutUp {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-}
-
-@keyframes fadeOutUp {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-}
-.fadeOutUp {
-  -webkit-animation-name: fadeOutUp;
-  animation-name: fadeOutUp;
-}
 </style>
