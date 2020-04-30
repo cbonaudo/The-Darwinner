@@ -8,7 +8,9 @@
       <div>Atoms per Click : {{ incrementValue }}</div>
 
       <div>
-        <button @click="atomClick">Add 1 Atom</button>
+        <button @click="atomClick" @keyup.a="atomClick">
+          <span class="underlined">A</span>dd 1 Atom
+        </button>
       </div>
 
       <div>
