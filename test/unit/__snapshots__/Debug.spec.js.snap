@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Debug.vue should have correct starting data 1`] = `
+Object {
+  "eraNumber": 1,
+  "timer": 0,
+}
+`;
+
+exports[`Debug.vue should render correct contents 1`] = `
+VueWrapper {
+  "_emitted": Object {},
+  "_emittedByOrder": Array [],
+  "isFunctionalComponent": undefined,
+}
+`;

@@ -5,18 +5,18 @@ Object {
   "atomsNumber": 0,
   "clicksNumber": 0,
   "incrementValue": 1,
-  "proteinNumber": 0,
+  "proteinsNumber": 0,
   "timer": 0,
   "upgrades": Array [
     Object {
-      "action": "addIncrement",
+      "action": "doubleIncrement",
+      "proteinsNeeded": 1,
       "text": "Add Increment 1",
-      "unlock": [Function],
     },
     Object {
-      "action": "addIncrement",
-      "text": "Add Increment 2",
-      "unlock": [Function],
+      "action": "addIncrementPer10",
+      "proteinsNeeded": 50,
+      "text": "Add 1 atom per 10 atoms",
     },
   ],
 }
