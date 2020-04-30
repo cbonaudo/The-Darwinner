@@ -41,6 +41,7 @@ export default {
 
   data() {
     return {
+      // Stats
       clicksNumber: 0,
       timer: 0,
       // Ressource Number

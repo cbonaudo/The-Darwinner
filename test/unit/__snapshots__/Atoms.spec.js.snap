@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Atoms.vue should have correct starting data 1`] = `
+Object {
+  "atomsNumber": 0,
+  "clicksNumber": 0,
+  "incrementValue": 1,
+  "proteinNumber": 0,
+  "timer": 0,
+  "upgrades": Array [
+    Object {
+      "action": "addIncrement",
+      "text": "Add Increment 1",
+      "unlock": [Function],
+    },
+    Object {
+      "action": "addIncrement",
+      "text": "Add Increment 2",
+      "unlock": [Function],
+    },
+  ],
+}
+`;
+
+exports[`Atoms.vue should render correct contents 1`] = `
+VueWrapper {
+  "_emitted": Object {},
+  "_emittedByOrder": Array [],
+  "isFunctionalComponent": undefined,
+}
+`;
