@@ -25,7 +25,7 @@ export default {
 <style>
 .changelog {
   text-align: left;
-  max-height: 200px;
-  overflow-y: scroll;
+  max-height: 400px;
+  overflow-y: auto;
 }
 </style>

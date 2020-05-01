@@ -12,9 +12,9 @@
       <div>{{ incrementValue === 1 ? "Atom" : "Atoms"}} per Click : {{ incrementValue }}</div>
 
       <div>
-        <button @click="atomClick" @keyup.a="atomClick">
+        <button @click="atomClick">
           Add 1
-          <span class="underlined">A</span>tom
+          <span :class="maintainUnlocked ? 'underlined': ''">A</span>tom
         </button>
       </div>
 
@@ -35,16 +35,14 @@ export default {
   name: 'Atoms',
   data() {
     return {
-      // Stats
-      clicksNumber: 0,
-      timer: 0,
       // Resources
       atomsNumber: 0,
       proteinsNumber: 0,
       // Resources Multiplier
       incrementValue: 1,
       // Upgrades
-      upgrades
+      upgrades,
+      maintainUnlocked: false
     }
   },
   watch: {
@@ -57,9 +55,11 @@ export default {
   methods: {
     // Atoms Actions
     atomClick() {
-      this.atomsNumber += this.incrementValue
-      this.clicksNumber++
       this.$emit('clicked')
+      this.atomBuying()
+    },
+    atomBuying() {
+      this.atomsNumber += this.incrementValue
     },
     // Proteins Actions
     getProteins() {
@@ -70,18 +70,16 @@ export default {
     },
     // Upgrades
     useUpgrade(upgrade, i) {
-      switch (upgrade.action) {
-        case 'doubleIncrement':
-          this.doubleIncrement()
-          break
-        case 'addIncrementPer10':
-          console.log('hello')
-      }
+      this['upgrade_' + upgrade.action]()
       this.proteinsNumber -= upgrade.proteinsNeeded
       this.upgrades.splice(i, 1)
     },
-    doubleIncrement() {
+    upgrade_doubleIncrement() {
       this.incrementValue *= 2
+    },
+    upgrade_unlockKeystroke() {
+      this.maintainUnlocked = true
+      this.$emit('unlockKeystroke')
     },
     isUnlocked(upgrade) {
       return this.proteinsNumber >= upgrade.proteinsNeeded

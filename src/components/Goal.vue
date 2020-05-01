@@ -8,7 +8,7 @@
     <div v-if="era === 1">
       <h3>Part I - The Atoms Era</h3>
       <ul>
-        <li>Create more Atoms (click or "A")</li>
+        <li>Create more Atoms</li>
         <li>{{ atomCeiling }} Atoms gives a Protein</li>
         <li>42 M Proteins unlock next Era</li>
       </ul>

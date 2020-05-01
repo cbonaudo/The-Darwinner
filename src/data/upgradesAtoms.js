@@ -1,12 +1,12 @@
 export const upgrades = [
   {
-    text: 'Add Increment 1',
-    action: 'doubleIncrement',
+    text: 'Allow to use "A" to generate Atoms',
+    action: 'unlockKeystroke',
     proteinsNeeded: 1
   },
   {
-    text: 'Add 1 atom per 10 atoms',
-    action: 'addIncrementPer10',
-    proteinsNeeded: 50
+    text: 'Double Atoms per click',
+    action: 'doubleIncrement',
+    proteinsNeeded: 3
   }
 ]

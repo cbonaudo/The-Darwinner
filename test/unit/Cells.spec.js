@@ -19,7 +19,4 @@ describe('Cells.vue', () => {
       expect(cellsData()).toMatchSnapshot()
     })
   })
-  describe('', () => {})
-  describe('', () => {})
-  describe('', () => {})
 })

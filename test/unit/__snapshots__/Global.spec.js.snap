@@ -5,6 +5,7 @@ Object {
   "clicks": 0,
   "era": 1,
   "keyStrokes": 0,
+  "keyStrokesAllowed": Array [],
 }
 `;
 

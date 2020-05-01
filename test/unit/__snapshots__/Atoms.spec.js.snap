@@ -4,17 +4,18 @@ exports[`Atoms.vue should have correct starting data 1`] = `
 Object {
   "atomsNumber": 0,
   "incrementValue": 1,
+  "maintainUnlocked": false,
   "proteinsNumber": 0,
   "upgrades": Array [
     Object {
-      "action": "doubleIncrement",
+      "action": "unlockKeystroke",
       "proteinsNeeded": 1,
-      "text": "Add Increment 1",
+      "text": "Allow to use \\"A\\" to generate Atoms",
     },
     Object {
-      "action": "addIncrementPer10",
-      "proteinsNeeded": 50,
-      "text": "Add 1 atom per 10 atoms",
+      "action": "doubleIncrement",
+      "proteinsNeeded": 3,
+      "text": "Double Atoms per click",
     },
   ],
 }

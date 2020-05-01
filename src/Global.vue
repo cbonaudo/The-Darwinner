@@ -3,12 +3,12 @@
     <div class="flex-row app-container">
       <div class="flex-col main-window">
         <Header></Header>
-        <Atoms @clicked="clicks++" ref="atoms"></Atoms>
+        <Atoms @clicked="clicks++" @unlockKeystroke="unlockKeystroke(65)" ref="atoms"></Atoms>
         <!-- <Cells></Cells> -->
       </div>
       <div class="sidebar">
         <Goal :era="era"></Goal>
-        <Debug :clicks="clicks" @resetAll="resetAll"></Debug>
+        <Debug :clicks="clicks" :keyStrokes="keyStrokes" @resetAll="resetAll"></Debug>
         <Changelog></Changelog>
       </div>
     </div>
@@ -26,13 +26,27 @@ import Changelog from './components/Changelog'
 export default {
   name: 'Global',
   data() {
-    return { clicks: 0, era: 1 }
+    return { clicks: 0, keyStrokes: 0, era: 1, keyStrokesAllowed: [] }
   },
   components: { Goal, Debug, Header, Atoms, Cells, Changelog },
+  created() {
+    document.onkeydown = evt => {
+      evt = evt || window.event
+      // Key: A
+      if (evt.keyCode === 65 && this.keyStrokesAllowed.includes(65)) {
+        this.$refs.atoms.atomBuying()
+        this.keyStrokes++
+      }
+    }
+  },
   methods: {
+    unlockKeystroke(key) {
+      this.keyStrokesAllowed.push(key)
+    },
     resetAll() {
       this.$refs.atoms.resetAtoms()
       this.clicks = 0
+      this.keyStrokes = 0
     }
   }
 }

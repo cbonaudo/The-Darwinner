@@ -62,18 +62,25 @@ describe('Atoms.vue', () => {
         upgrades: [
           {
             text: 'Add Increment 1',
-            action: 'addIncrement',
-            unlock: () => true
+            action: 'doubleIncrement',
+            proteinsNeeded: 1
           },
           {
             text: 'Add Increment 2',
-            action: 'addIncrement',
-            unlock: () => true
+            action: 'unlockKeystroke',
+            proteinsNeeded: 1
           }
         ]
       })
       expect(wrapper.vm.upgrades.length).toEqual(2)
-      wrapper.vm.useUpgrade('addIncrement', 1)
+      wrapper.vm.useUpgrade(
+        {
+          text: 'Add Increment 1',
+          action: 'doubleIncrement',
+          proteinsNeeded: 1
+        },
+        1
+      )
       expect(wrapper.vm.upgrades.length).toEqual(1)
     })
   })
@@ -82,14 +89,23 @@ describe('Atoms.vue', () => {
     it('incrementValue increase to 2 from 1', () => {
       wrapper.setData({ incrementValue: 1 })
       expect(wrapper.vm.incrementValue).toEqual(1)
-      wrapper.vm.doubleIncrement()
+      wrapper.vm.upgrade_doubleIncrement()
       expect(wrapper.vm.incrementValue).toEqual(2)
     })
     it('incrementValue increase to 64 from 32', () => {
       wrapper.setData({ incrementValue: 32 })
       expect(wrapper.vm.incrementValue).toEqual(32)
-      wrapper.vm.doubleIncrement()
+      wrapper.vm.upgrade_doubleIncrement()
       expect(wrapper.vm.incrementValue).toEqual(64)
+    })
+  })
+
+  describe('upgrade_unlockKeystroke', () => {
+    it('unlockedKeystroke to true', () => {
+      wrapper.setData({ maintainUnlocked: false })
+      expect(wrapper.vm.maintainUnlocked).toEqual(false)
+      wrapper.vm.upgrade_unlockKeystroke()
+      expect(wrapper.vm.maintainUnlocked).toEqual(true)
     })
   })
 
