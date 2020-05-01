@@ -9,7 +9,7 @@
       <h3>Part I - The Atoms Era</h3>
       <ul>
         <li>Create more Atoms (click or "A")</li>
-        <li>210 Atoms gives a Protein</li>
+        <li>{{ atomCeiling }} Atoms gives a Protein</li>
         <li>42 M Proteins unlock next Era</li>
       </ul>
     </div>
@@ -26,8 +26,13 @@
 </template>
 
 <script>
+import { atomCeiling } from '@/data/constants'
+
 export default {
   name: 'Goal',
+  data() {
+    return { atomCeiling }
+  },
   props: {
     era: { default: 0 }
   }

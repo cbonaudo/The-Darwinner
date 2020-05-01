@@ -1,13 +1,15 @@
 <template>
   <div>
     <h2>
-      <span>{{ atomsNumber }} Atoms</span>
+      <span>{{ atomsNumber }} {{ atomsNumber === 1 ? "Atom" : "Atoms"}}</span>
       <br />
-      <span v-if="proteinsNumber">{{ proteinsNumber }} Proteins</span>
+      <span
+        v-if="proteinsNumber"
+      >{{ proteinsNumber }} {{ atomsNumber === 1 ? "Protein" : "Proteins"}}</span>
     </h2>
 
     <div class="atom-container">
-      <div>Atoms per Click : {{ incrementValue }}</div>
+      <div>{{ incrementValue === 1 ? "Atom" : "Atoms"}} per Click : {{ incrementValue }}</div>
 
       <div>
         <button @click="atomClick" @keyup.a="atomClick">
@@ -26,7 +28,8 @@
 </template>
 
 <script>
-import { upgrades } from '../data/upgradesAtoms'
+import { upgrades } from '@/data/upgradesAtoms'
+import { atomCeiling } from '@/data/constants'
 
 export default {
   name: 'Atoms',
@@ -60,9 +63,9 @@ export default {
     },
     // Proteins Actions
     getProteins() {
-      if (this.atomsNumber >= 210) {
-        this.proteinsNumber += Math.floor(this.atomsNumber / 210)
-        this.atomsNumber %= 210
+      if (this.atomsNumber >= atomCeiling) {
+        this.proteinsNumber += Math.floor(this.atomsNumber / atomCeiling)
+        this.atomsNumber %= atomCeiling
       }
     },
     // Upgrades
