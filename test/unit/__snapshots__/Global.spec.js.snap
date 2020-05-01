@@ -4,6 +4,7 @@ exports[`Global.vue should have correct starting data 1`] = `
 Object {
   "clicks": 0,
   "era": 1,
+  "keyStrokes": 0,
 }
 `;
 

@@ -8,6 +8,10 @@ describe('Cells.vue', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
+  it('should have correct starting data', () => {
+    expect(Cells.data()).toMatchSnapshot()
+  })
+
   describe('data', () => {
     it('should initialize correctly', () => {
       const cellsData = Cells.data

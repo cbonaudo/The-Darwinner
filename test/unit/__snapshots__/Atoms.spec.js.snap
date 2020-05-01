@@ -3,10 +3,8 @@
 exports[`Atoms.vue should have correct starting data 1`] = `
 Object {
   "atomsNumber": 0,
-  "clicksNumber": 0,
   "incrementValue": 1,
   "proteinsNumber": 0,
-  "timer": 0,
   "upgrades": Array [
     Object {
       "action": "doubleIncrement",

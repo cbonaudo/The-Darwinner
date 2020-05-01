@@ -29,6 +29,35 @@ Object {
 }
 `;
 
+exports[`Cells.vue should have correct starting data 1`] = `
+Object {
+  "cellsNumber": 1,
+  "clicksNumber": 0,
+  "divisionChance": 0,
+  "earnedCellClick": 0,
+  "earnedCellPeriodic": 0,
+  "maxClickMultiplier": 0.05,
+  "periodicGain": 0,
+  "periodicMultiplier": 0.05,
+  "timer": 0,
+  "upgrades": Array [
+    Object {
+      "description": "Add 5% to your max click multiplier",
+      "name": "More mutliplier",
+    },
+    Object {
+      "description": "Add 10% to Automatic Division chances",
+      "name": "More Auto-Division",
+    },
+    Object {
+      "description": "Add 5% to Automatic Division Multiplier",
+      "name": "Easier Auto-Division",
+    },
+  ],
+  "upgradesAvailable": Array [],
+}
+`;
+
 exports[`Cells.vue should render correct contents 1`] = `
 VueWrapper {
   "_emitted": Object {},

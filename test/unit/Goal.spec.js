@@ -7,4 +7,8 @@ describe('Goal.vue', () => {
   it('should render correct contents', () => {
     expect(wrapper).toMatchSnapshot()
   })
+
+  it('should have correct starting data', () => {
+    expect(Goal.data()).toMatchSnapshot()
+  })
 })

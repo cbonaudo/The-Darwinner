@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Goal.vue should have correct starting data 1`] = `
+Object {
+  "atomCeiling": 210,
+}
+`;
+
 exports[`Goal.vue should render correct contents 1`] = `
 VueWrapper {
   "_emitted": Object {},

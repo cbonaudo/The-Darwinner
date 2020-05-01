@@ -15,30 +15,18 @@ describe('Atoms.vue', () => {
     expect(Atoms.data()).toMatchSnapshot()
   })
 
-  describe('atomClick', () => {
+  describe('atomBuying', () => {
     it('it increases atomsNumber by the incrementValue: 1', () => {
       wrapper.setData({ atomsNumber: 0, incrementValue: 1 })
       expect(wrapper.vm.atomsNumber).toEqual(0)
-      wrapper.vm.atomClick()
+      wrapper.vm.atomBuying()
       expect(wrapper.vm.atomsNumber).toEqual(1)
     })
     it('it increases atomsNumber by the incrementValue: 2', () => {
       wrapper.setData({ atomsNumber: 0, incrementValue: 2 })
       expect(wrapper.vm.atomsNumber).toEqual(0)
-      wrapper.vm.atomClick()
+      wrapper.vm.atomBuying()
       expect(wrapper.vm.atomsNumber).toEqual(2)
-    })
-    it('it increases clicksNumber by 1', () => {
-      wrapper.setData({ clicksNumber: 0 })
-      expect(wrapper.vm.clicksNumber).toEqual(0)
-      wrapper.vm.atomClick()
-      expect(wrapper.vm.clicksNumber).toEqual(1)
-    })
-    it('it increases clicksNumber by 1 even when incrementValue increases', () => {
-      wrapper.setData({ clicksNumber: 0, incrementValue: 2 })
-      expect(wrapper.vm.clicksNumber).toEqual(0)
-      wrapper.vm.atomClick()
-      expect(wrapper.vm.clicksNumber).toEqual(1)
     })
   })
 
@@ -90,7 +78,7 @@ describe('Atoms.vue', () => {
     })
   })
 
-  describe('doubleIncrement', () => {
+  describe('upgrade_doubleIncrement', () => {
     it('incrementValue increase to 2 from 1', () => {
       wrapper.setData({ incrementValue: 1 })
       expect(wrapper.vm.incrementValue).toEqual(1)

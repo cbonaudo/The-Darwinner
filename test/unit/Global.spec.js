@@ -19,5 +19,11 @@ describe('Global.vue', () => {
       wrapper.vm.resetAll()
       expect(wrapper.vm.clicks).toEqual(0)
     })
+    it('should reset the keyStrokes', () => {
+      wrapper.setData({ keyStrokes: 10 })
+      expect(wrapper.vm.keyStrokes).toEqual(10)
+      wrapper.vm.resetAll()
+      expect(wrapper.vm.keyStrokes).toEqual(0)
+    })
   })
 })
