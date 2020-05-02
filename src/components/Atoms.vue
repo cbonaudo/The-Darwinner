@@ -1,20 +1,20 @@
 <template>
   <div>
     <h2>
-      <span>{{ atomsNumber }} {{ atomsNumber === 1 ? "Atom" : "Atoms"}}</span>
+      <span>{{ atomsNumber }} {{ atomsNumber === 1 ? 'Atom' : 'Atoms' }}</span>
       <br />
       <span
         v-if="proteinsNumber"
-      >{{ proteinsNumber }} {{ atomsNumber === 1 ? "Protein" : "Proteins"}}</span>
+      >{{ proteinsNumber > 9999 ? proteinsNumber.toExponential() : proteinsNumber }} {{ atomsNumber === 1 ? 'Protein' : 'Proteins' }}</span>
     </h2>
 
     <div class="atom-container">
-      <div>{{ incrementValue === 1 ? "Atom" : "Atoms"}} per Click : {{ incrementValue }}</div>
+      <div>{{ incrementValue === 1 ? 'Atom' : 'Atoms' }} per Click : {{ incrementValue }}</div>
 
       <div>
         <button @click="atomClick">
           Add 1
-          <span :class="maintainUnlocked ? 'underlined': ''">A</span>tom
+          <span :class="maintainUnlocked ? 'underlined' : ''">A</span>tom
         </button>
       </div>
 
