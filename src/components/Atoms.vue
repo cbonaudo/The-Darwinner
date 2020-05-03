@@ -102,14 +102,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .upgrades-bought {
   width: 100px;
 }
 .atom-container {
   flex-grow: 2;
-}
-.atom-container > div {
-  margin-bottom: 10px;
+  > div > div {
+    margin-bottom: 10px;
+  }
 }
 </style>
