@@ -18,6 +18,7 @@ Object {
       "text": "Double Atoms per click",
     },
   ],
+  "upgradesBought": Array [],
 }
 `;
 

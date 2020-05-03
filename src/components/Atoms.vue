@@ -1,26 +1,34 @@
 <template>
   <div>
-    <h2>
-      <span>{{ atomsNumber }} {{ atomsNumber === 1 ? 'Atom' : 'Atoms' }}</span>
-      <br />
-      <span
-        v-if="proteinsNumber"
-      >{{ proteinsNumber > 9999 ? proteinsNumber.toExponential() : proteinsNumber }} {{ atomsNumber === 1 ? 'Protein' : 'Proteins' }}</span>
-    </h2>
-
-    <div class="atom-container">
-      <div>{{ incrementValue === 1 ? 'Atom' : 'Atoms' }} per Click : {{ incrementValue }}</div>
-
-      <div>
-        <button @click="atomClick">
-          Add 1
-          <span :class="maintainUnlocked ? 'underlined' : ''">A</span>tom
-        </button>
+    <div class="flex-row space-between">
+      <div class="upgrades-bought">
+        <div v-for="(upgradeBought, i) in upgradesBought" :key="i">{{ upgradeBought.text }}</div>
       </div>
+      <div class="atom-container">
+        <h2>
+          <span>{{ atomsNumber }} {{ atomsNumber === 1 ? 'Atom' : 'Atoms' }}</span>
+          <br />
+          <span v-if="proteinsNumber"
+            >{{ proteinsNumber > 9999 ? proteinsNumber.toExponential() : proteinsNumber }}
+            {{ atomsNumber === 1 ? 'Protein' : 'Proteins' }}</span
+          >
+        </h2>
 
-      <div>
-        <div v-for="(upgrade, i) in upgrades" :key="i">
-          <button @click="useUpgrade(upgrade, i)" v-if="isUnlocked(upgrade)">{{ upgrade.text }}</button>
+        <div>
+          <div>{{ incrementValue === 1 ? 'Atom' : 'Atoms' }} per Click : {{ incrementValue }}</div>
+
+          <div>
+            <button @click="atomClick">
+              Add 1
+              <span :class="maintainUnlocked ? 'underlined' : ''">A</span>tom
+            </button>
+          </div>
+
+          <div>
+            <div v-for="(upgrade, i) in upgrades" :key="i">
+              <button @click="useUpgrade(upgrade, i)" v-if="isUnlocked(upgrade)">{{ upgrade.text }}</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -42,6 +50,7 @@ export default {
       incrementValue: 1,
       // Upgrades
       upgrades,
+      upgradesBought: [],
       maintainUnlocked: false
     }
   },
@@ -72,6 +81,7 @@ export default {
     useUpgrade(upgrade, i) {
       this['upgrade_' + upgrade.action]()
       this.proteinsNumber -= upgrade.proteinsNeeded
+      this.upgradesBought.push(upgrade)
       this.upgrades.splice(i, 1)
     },
     upgrade_doubleIncrement() {
@@ -93,6 +103,12 @@ export default {
 </script>
 
 <style scoped>
+.upgrades-bought {
+  width: 100px;
+}
+.atom-container {
+  flex-grow: 2;
+}
 .atom-container > div {
   margin-bottom: 10px;
 }

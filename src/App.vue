@@ -30,4 +30,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
+.space-between {
+  justify-content: space-between;
+}
 </style>

@@ -72,6 +72,7 @@ describe('Atoms.vue', () => {
           }
         ]
       })
+      expect(wrapper.vm.upgradesBought).toEqual([])
       expect(wrapper.vm.upgrades.length).toEqual(2)
       wrapper.vm.useUpgrade(
         {
@@ -82,6 +83,13 @@ describe('Atoms.vue', () => {
         1
       )
       expect(wrapper.vm.upgrades.length).toEqual(1)
+      expect(wrapper.vm.upgradesBought).toEqual([
+        {
+          text: 'Add Increment 1',
+          action: 'doubleIncrement',
+          proteinsNeeded: 1
+        }
+      ])
     })
   })
 
