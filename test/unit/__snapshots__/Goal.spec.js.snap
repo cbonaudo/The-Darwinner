@@ -7,9 +7,25 @@ Object {
 `;
 
 exports[`Goal.vue should render correct contents 1`] = `
-VueWrapper {
-  "_emitted": Object {},
-  "_emittedByOrder": Array [],
-  "isFunctionalComponent": undefined,
-}
+<div
+  class="goal"
+>
+  <h2>
+    How to play :
+  </h2>
+   
+  <div>
+    <h3>
+      Error - Era
+    </h3>
+     
+    <p>
+      Someone messed up big
+    </p>
+  </div>
+   
+  <!---->
+   
+  <!---->
+</div>
 `;

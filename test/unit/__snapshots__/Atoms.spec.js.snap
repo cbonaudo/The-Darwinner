@@ -23,9 +23,57 @@ Object {
 `;
 
 exports[`Atoms.vue should render correct contents 1`] = `
-VueWrapper {
-  "_emitted": Object {},
-  "_emittedByOrder": Array [],
-  "isFunctionalComponent": undefined,
-}
+<div>
+  <div
+    class="flex-row space-between"
+  >
+    <div
+      class="upgrades-bought"
+    />
+     
+    <div
+      class="atom-container"
+    >
+      <h2>
+        <span>
+          0 Atoms
+        </span>
+         
+        <br />
+         
+        <!---->
+      </h2>
+       
+      <div>
+        <div>
+          Atom per Click : 1
+        </div>
+         
+        <div>
+          <button>
+            
+            Add 1
+            
+            <span
+              class=""
+            >
+              A
+            </span>
+            tom
+          
+          </button>
+        </div>
+         
+        <div>
+          <div>
+            <!---->
+          </div>
+          <div>
+            <!---->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;

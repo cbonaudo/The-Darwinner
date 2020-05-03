@@ -2,14 +2,32 @@ import Global from '@/Global'
 import { mount } from '@vue/test-utils'
 
 describe('Global.vue', () => {
-  const wrapper = mount(Global)
+  const wrapper = mount(Global, { attachToDocument: true })
 
   it('should render correct contents', () => {
-    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.element).toMatchSnapshot()
   })
 
   it('should have correct starting data', () => {
     expect(Global.data()).toMatchSnapshot()
+  })
+
+  describe('onkeydown', () => {
+    it('should trigger on "A" key, if keystrokesAllowed', () => {
+      wrapper.setData({ keyStrokes: 10, keyStrokesAllowed: [65] })
+      wrapper.trigger('keydown', { keyCode: '65' })
+      expect(wrapper.vm.keyStrokes).toEqual(11)
+    })
+    it('should not trigger on "A" key, if keystrokes 65 is not allowed', () => {
+      wrapper.setData({ keyStrokes: 10, keyStrokesAllowed: [] })
+      wrapper.trigger('keydown', { keyCode: '65' })
+      expect(wrapper.vm.keyStrokes).toEqual(10)
+    })
+    it('should do nothing on other keys', () => {
+      wrapper.setData({ keyStrokes: 10 })
+      wrapper.trigger('keydown.esc')
+      expect(wrapper.vm.keyStrokes).toEqual(10)
+    })
   })
 
   describe('resetAll', () => {

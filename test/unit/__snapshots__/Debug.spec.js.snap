@@ -8,9 +8,23 @@ Object {
 `;
 
 exports[`Debug.vue should render correct contents 1`] = `
-VueWrapper {
-  "_emitted": Object {},
-  "_emittedByOrder": Array [],
-  "isFunctionalComponent": undefined,
-}
+<div
+  class="debug"
+>
+  <button>
+    Reset
+  </button>
+   
+  <p>
+    Clicks : 0
+  </p>
+   
+  <p>
+    Key Strokes : 0
+  </p>
+   
+  <p>
+    Timer : 0
+  </p>
+</div>
 `;

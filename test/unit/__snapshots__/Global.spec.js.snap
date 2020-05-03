@@ -10,9 +10,193 @@ Object {
 `;
 
 exports[`Global.vue should render correct contents 1`] = `
-VueWrapper {
-  "_emitted": Object {},
-  "_emittedByOrder": Array [],
-  "isFunctionalComponent": undefined,
-}
+<div>
+  <div
+    class="flex-row app-container"
+  >
+    <div
+      class="flex-col main-window"
+    >
+      <div
+        class="header"
+      >
+        <h1>
+          ThE DaRwInNeR™
+        </h1>
+         
+        <p
+          class="subtitle"
+        >
+          <span>
+            'Evolve this'
+          </span>
+           -
+    
+          <span>
+            Version 0.2.0
+          </span>
+           -
+    
+          <span>
+            github.com/cbonaudo
+          </span>
+        </p>
+      </div>
+       
+      <div>
+        <div
+          class="flex-row space-between"
+        >
+          <div
+            class="upgrades-bought"
+          />
+           
+          <div
+            class="atom-container"
+          >
+            <h2>
+              <span>
+                0 Atoms
+              </span>
+               
+              <br />
+               
+              <!---->
+            </h2>
+             
+            <div>
+              <div>
+                Atom per Click : 1
+              </div>
+               
+              <div>
+                <button>
+                  
+            Add 1
+            
+                  <span
+                    class=""
+                  >
+                    A
+                  </span>
+                  tom
+          
+                </button>
+              </div>
+               
+              <div>
+                <div>
+                  <!---->
+                </div>
+                <div>
+                  <!---->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <div
+      class="sidebar"
+    >
+      <div
+        class="goal"
+      >
+        <h2>
+          How to play :
+        </h2>
+         
+        <!---->
+         
+        <div>
+          <h3>
+            Part I - The Atoms Era
+          </h3>
+           
+          <ul>
+            <li>
+              Create more Atoms
+            </li>
+             
+            <li>
+              210 Atoms gives a Protein
+            </li>
+             
+            <li>
+              42 M Proteins unlock next Era
+            </li>
+          </ul>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <div
+        class="debug"
+      >
+        <button>
+          Reset
+        </button>
+         
+        <p>
+          Clicks : 0
+        </p>
+         
+        <p>
+          Key Strokes : 0
+        </p>
+         
+        <p>
+          Timer : 0
+        </p>
+      </div>
+       
+      <div
+        class="changelog"
+      >
+        <h2>
+          Release Notes
+        </h2>
+         
+        <h3>
+          V.0.2.0 - Re-Genesis - 30/04/20
+        </h3>
+         
+        <ul>
+          <li>
+            Add testing
+          </li>
+           
+          <li>
+            Create Atoms Era
+          </li>
+        </ul>
+         
+        <h3>
+          V.0.1.0 - Genesis - 07/04/19
+        </h3>
+         
+        <ul>
+          <li>
+            Create the game
+          </li>
+           
+          <li>
+            Find a cool-ass name
+          </li>
+           
+          <li>
+            Create Cells era
+          </li>
+           
+          <li>
+            Deploy the game
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 `;

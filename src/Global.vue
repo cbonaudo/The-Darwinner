@@ -4,7 +4,6 @@
       <div class="flex-col main-window">
         <Header></Header>
         <Atoms @clicked="clicks++" @unlockKeystroke="unlockKeystroke(65)" ref="atoms"></Atoms>
-        <!-- <Cells></Cells> -->
       </div>
       <div class="sidebar">
         <Goal :era="era"></Goal>
@@ -18,7 +17,6 @@
 <script>
 import Header from './components/Header'
 import Atoms from './components/Atoms'
-import Cells from './components/Cells'
 import Goal from './components/Goal'
 import Debug from './components/Debug'
 import Changelog from './components/Changelog'
@@ -28,10 +26,9 @@ export default {
   data() {
     return { clicks: 0, keyStrokes: 0, era: 1, keyStrokesAllowed: [] }
   },
-  components: { Goal, Debug, Header, Atoms, Cells, Changelog },
+  components: { Goal, Debug, Header, Atoms, Changelog },
   created() {
     document.onkeydown = evt => {
-      evt = evt || window.event
       // Key: A
       if (evt.keyCode === 65 && this.keyStrokesAllowed.includes(65)) {
         this.$refs.atoms.atomKeyStrike()

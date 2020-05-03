@@ -9,7 +9,7 @@ describe('Atoms.vue', () => {
   })
 
   it('should render correct contents', () => {
-    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.element).toMatchSnapshot()
   })
   it('should have correct starting data', () => {
     expect(Atoms.data()).toMatchSnapshot()

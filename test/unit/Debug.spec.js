@@ -5,7 +5,7 @@ describe('Debug.vue', () => {
   const wrapper = shallowMount(Debug)
 
   it('should render correct contents', () => {
-    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.element).toMatchSnapshot()
   })
 
   it('should have correct starting data', () => {

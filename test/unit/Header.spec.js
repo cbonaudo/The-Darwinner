@@ -5,6 +5,6 @@ describe('Header.vue', () => {
   const wrapper = shallowMount(Header)
 
   it('should render correct contents', () => {
-    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.element).toMatchSnapshot()
   })
 })

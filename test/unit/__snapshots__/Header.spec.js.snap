@@ -1,9 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header.vue should render correct contents 1`] = `
-VueWrapper {
-  "_emitted": Object {},
-  "_emittedByOrder": Array [],
-  "isFunctionalComponent": undefined,
-}
+<div
+  class="header"
+>
+  <h1>
+    ThE DaRwInNeR™
+  </h1>
+   
+  <p
+    class="subtitle"
+  >
+    <span>
+      'Evolve this'
+    </span>
+     -
+    
+    <span>
+      Version 0.2.0
+    </span>
+     -
+    
+    <span>
+      github.com/cbonaudo
+    </span>
+  </p>
+</div>
 `;
