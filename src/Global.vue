@@ -34,7 +34,7 @@ export default {
       evt = evt || window.event
       // Key: A
       if (evt.keyCode === 65 && this.keyStrokesAllowed.includes(65)) {
-        this.$refs.atoms.atomBuying()
+        this.$refs.atoms.atomKeyStrike()
         this.keyStrokes++
       }
     }

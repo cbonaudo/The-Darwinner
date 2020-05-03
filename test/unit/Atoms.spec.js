@@ -15,6 +15,24 @@ describe('Atoms.vue', () => {
     expect(Atoms.data()).toMatchSnapshot()
   })
 
+  describe('atomClick', () => {
+    it('it increases atomsNumber by the incrementValue: 1', () => {
+      wrapper.setData({ atomsNumber: 0, incrementValue: 1 })
+      expect(wrapper.vm.atomsNumber).toEqual(0)
+      wrapper.vm.atomClick()
+      expect(wrapper.vm.atomsNumber).toEqual(1)
+    })
+  })
+
+  describe('atomKeyStrike', () => {
+    it('it increases atomsNumber by half the incrementValue: 1', () => {
+      wrapper.setData({ atomsNumber: 0, incrementValue: 1 })
+      expect(wrapper.vm.atomsNumber).toEqual(0)
+      wrapper.vm.atomKeyStrike()
+      expect(wrapper.vm.atomsNumber).toEqual(0.5)
+    })
+  })
+
   describe('atomBuying', () => {
     it('it increases atomsNumber by the incrementValue: 1', () => {
       wrapper.setData({ atomsNumber: 0, incrementValue: 1 })
@@ -27,6 +45,12 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.atomsNumber).toEqual(0)
       wrapper.vm.atomBuying()
       expect(wrapper.vm.atomsNumber).toEqual(2)
+    })
+    it('it increases atomsNumber by half the incrementValue: 1', () => {
+      wrapper.setData({ atomsNumber: 0, incrementValue: 1 })
+      expect(wrapper.vm.atomsNumber).toEqual(0)
+      wrapper.vm.atomBuying(0.5)
+      expect(wrapper.vm.atomsNumber).toEqual(0.5)
     })
   })
 

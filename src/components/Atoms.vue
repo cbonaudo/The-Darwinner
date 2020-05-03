@@ -6,7 +6,7 @@
       </div>
       <div class="atom-container">
         <h2>
-          <span>{{ atomsNumber }} {{ atomsNumber === 1 ? 'Atom' : 'Atoms' }}</span>
+          <span>{{ Math.floor(atomsNumber) }} {{ atomsNumber === 1 ? 'Atom' : 'Atoms' }}</span>
           <br />
           <span v-if="proteinsNumber"
             >{{ proteinsNumber > 9999 ? proteinsNumber.toExponential() : proteinsNumber }}
@@ -67,8 +67,11 @@ export default {
       this.$emit('clicked')
       this.atomBuying()
     },
-    atomBuying() {
-      this.atomsNumber += this.incrementValue
+    atomKeyStrike() {
+      this.atomBuying(0.5)
+    },
+    atomBuying(modifier = 1) {
+      this.atomsNumber += this.incrementValue * modifier
     },
     // Proteins Actions
     getProteins() {
