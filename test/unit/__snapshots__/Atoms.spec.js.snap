@@ -4,15 +4,17 @@ exports[`Atoms.vue should have correct starting data 1`] = `
 Object {
   "atomsNumber": 0,
   "incrementValue": 1,
-  "maintainUnlocked": false,
+  "keyStrokeUnlocked": false,
   "proteinsNumber": 0,
   "tenthClick": 0,
   "tenthClickActivated": false,
+  "tenthKeyStroke": 0,
+  "tenthKeyStrokeActivated": false,
   "upgrades": Array [
     Object {
-      "action": "unlockKeystroke",
+      "action": "unlockKeyStroke",
       "proteinsNeeded": 1,
-      "text": "Allow to use \\"A\\" to generate Atoms",
+      "text": "Allow to use \\"A\\" to generate half Atoms",
     },
     Object {
       "action": "doubleIncrement",
@@ -21,8 +23,33 @@ Object {
     },
     Object {
       "action": "activateTenthClick",
-      "proteinsNeeded": 5,
+      "proteinsNeeded": 6,
       "text": "Gain 1 click per 10 clicks",
+    },
+    Object {
+      "action": "activateTenthKeyStroke",
+      "proteinsNeeded": 10,
+      "text": "Gain 1 keystroke per 10 keystroke",
+    },
+    Object {
+      "action": "doubleIncrement",
+      "proteinsNeeded": 15,
+      "text": "Double Atoms per click",
+    },
+    Object {
+      "action": "doubleIncrement",
+      "proteinsNeeded": 21,
+      "text": "Double Atoms per click",
+    },
+    Object {
+      "action": "doubleIncrement",
+      "proteinsNeeded": 28,
+      "text": "Double Atoms per click",
+    },
+    Object {
+      "action": "doubleIncrement",
+      "proteinsNeeded": 36,
+      "text": "Double Atoms per click",
     },
   ],
   "upgradesBought": Array [],
@@ -46,6 +73,8 @@ exports[`Atoms.vue should render correct contents 1`] = `
           0 Atoms
         </span>
       </h2>
+       
+      <!---->
        
       <!---->
        
@@ -76,6 +105,21 @@ exports[`Atoms.vue should render correct contents 1`] = `
         </div>
          
         <div>
+          <div>
+            <!---->
+          </div>
+          <div>
+            <!---->
+          </div>
+          <div>
+            <!---->
+          </div>
+          <div>
+            <!---->
+          </div>
+          <div>
+            <!---->
+          </div>
           <div>
             <!---->
           </div>

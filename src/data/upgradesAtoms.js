@@ -1,7 +1,7 @@
 export const upgrades = [
   {
-    text: 'Allow to use "A" to generate Atoms',
-    action: 'unlockKeystroke',
+    text: 'Allow to use "A" to generate half Atoms',
+    action: 'unlockKeyStroke',
     proteinsNeeded: 1
   },
   {
@@ -15,8 +15,8 @@ export const upgrades = [
     proteinsNeeded: 6
   },
   {
-    text: 'Double Atoms per click',
-    action: 'doubleIncrement',
+    text: 'Gain 1 keystroke per 10 keystroke',
+    action: 'activateTenthKeyStroke',
     proteinsNeeded: 10
   },
   {

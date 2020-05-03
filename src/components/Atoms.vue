@@ -9,8 +9,17 @@
           <span>{{ Math.floor(atomsNumber) }} {{ atomsNumber === 1 ? 'Atom' : 'Atoms' }}</span>
         </h2>
         <div v-if="tenthClickActivated">
-          <span v-for="(tenth, i) in new Array(tenthClick)" :key="i + 'tenth'">o</span>
-          <span v-for="(empty, i) in new Array(10 - tenthClick)" :key="i + 'empty'">-</span>
+          Tenth Click :
+          <span v-for="(tenth, i) in new Array(tenthClick)" :key="i + 'tenthC'">o</span>
+          <span v-for="(empty, i) in new Array(10 - tenthClick)" :key="i + 'emptyC'">-</span>
+        </div>
+        <div v-if="tenthKeyStrokeActivated">
+          Tenth Key Stroke :
+          <span
+            v-for="(tenth, i) in new Array(tenthKeyStroke)"
+            :key="i + 'tenthKS'"
+          >o</span>
+          <span v-for="(empty, i) in new Array(10 - tenthKeyStroke)" :key="i + 'emptyKS'">-</span>
         </div>
         <h2>
           <span v-if="proteinsNumber">
@@ -25,7 +34,7 @@
           <div>
             <button type="button" @mousedown="atomClick">
               Add 1
-              <span :class="maintainUnlocked ? 'underlined' : ''">A</span>tom
+              <span :class="keyStrokeUnlocked ? 'underlined' : ''">A</span>tom
             </button>
           </div>
 
@@ -53,12 +62,14 @@ export default {
       proteinsNumber: 0,
       tenthClick: 0,
       tenthClickActivated: false,
+      tenthKeyStroke: 0,
+      tenthKeyStrokeActivated: false,
       // Resources Multiplier
       incrementValue: 1,
       // Upgrades
       upgrades,
       upgradesBought: [],
-      maintainUnlocked: false
+      keyStrokeUnlocked: false
     }
   },
   watch: {
@@ -75,7 +86,8 @@ export default {
       this.tenthClickActivated && this.getTenthClick()
       this.atomBuying()
     },
-    atomKeyStrike() {
+    atomKeyStroke() {
+      this.tenthKeyStrokeActivated && this.getTenthKeyStroke()
       this.atomBuying(0.5)
     },
     atomBuying(modifier = 1) {
@@ -87,6 +99,14 @@ export default {
         this.atomBuying()
       } else {
         this.tenthClick++
+      }
+    },
+    getTenthKeyStroke() {
+      if (this.tenthKeyStroke >= 9) {
+        this.tenthKeyStroke = 0
+        this.atomBuying(0.5)
+      } else {
+        this.tenthKeyStroke++
       }
     },
     // Proteins Actions
@@ -106,12 +126,15 @@ export default {
     upgrade_doubleIncrement() {
       this.incrementValue *= 2
     },
-    upgrade_unlockKeystroke() {
-      this.maintainUnlocked = true
+    upgrade_unlockKeyStroke() {
+      this.keyStrokeUnlocked = true
       this.$emit('unlockKeystroke')
     },
     upgrade_activateTenthClick() {
       this.tenthClickActivated = true
+    },
+    upgrade_activateTenthKeyStroke() {
+      this.tenthKeyStrokeActivated = true
     },
     isUnlocked(upgrade) {
       return this.proteinsNumber >= upgrade.proteinsNeeded

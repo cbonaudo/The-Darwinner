@@ -31,7 +31,7 @@ export default {
     document.onkeydown = evt => {
       // Key: A
       if (evt.keyCode === 65 && this.keyStrokesAllowed.includes(65)) {
-        this.$refs.atoms.atomKeyStrike()
+        this.$refs.atoms.atomKeyStroke()
         this.keyStrokes++
       }
     }

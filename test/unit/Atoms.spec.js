@@ -36,12 +36,24 @@ describe('Atoms.vue', () => {
     })
   })
 
-  describe('atomKeyStrike', () => {
+  describe('atomKeyStroke', () => {
     it('increases atomsNumber by half the incrementValue: 1', () => {
       wrapper.setData({ atomsNumber: 0, incrementValue: 1 })
       expect(wrapper.vm.atomsNumber).toEqual(0)
-      wrapper.vm.atomKeyStrike()
+      wrapper.vm.atomKeyStroke()
       expect(wrapper.vm.atomsNumber).toEqual(0.5)
+    })
+    it('calls getTenthKeyStroke() if activated', () => {
+      wrapper.setData({ tenthKeyStrokeActivated: true, tenthKeyStroke: 0 })
+      expect(wrapper.vm.tenthKeyStroke).toEqual(0)
+      wrapper.vm.atomKeyStroke()
+      expect(wrapper.vm.tenthKeyStroke).toEqual(1)
+    })
+    it("doesn't call getTenthKeyStroke() if activated", () => {
+      wrapper.setData({ tenthKeyStrokeActivated: false, tenthClick: 0 })
+      expect(wrapper.vm.tenthKeyStroke).toEqual(0)
+      wrapper.vm.atomKeyStroke()
+      expect(wrapper.vm.tenthKeyStroke).toEqual(0)
     })
   })
 
@@ -81,18 +93,18 @@ describe('Atoms.vue', () => {
     })
   })
 
-  describe('upgrade_activateTenthClick', () => {
-    it('switch tenthClickActivated to true', () => {
-      wrapper.setData({ tenthClickActivated: false })
-      expect(wrapper.vm.tenthClickActivated).toEqual(false)
-      wrapper.vm.upgrade_activateTenthClick()
-      expect(wrapper.vm.tenthClickActivated).toEqual(true)
+  describe('getTenthKeyStroke', () => {
+    it('increases the tenthKeyStroke by 1', () => {
+      wrapper.setData({ tenthKeyStroke: 0 })
+      expect(wrapper.vm.tenthKeyStroke).toEqual(0)
+      wrapper.vm.getTenthKeyStroke()
+      expect(wrapper.vm.tenthKeyStroke).toEqual(1)
     })
-    it('keep tenthClickActivated to true', () => {
-      wrapper.setData({ tenthClickActivated: true })
-      expect(wrapper.vm.tenthClickActivated).toEqual(true)
-      wrapper.vm.upgrade_activateTenthClick()
-      expect(wrapper.vm.tenthClickActivated).toEqual(true)
+    it('bring the tenthKeyStroke to 0', () => {
+      wrapper.setData({ tenthKeyStroke: 9 })
+      expect(wrapper.vm.tenthKeyStroke).toEqual(9)
+      wrapper.vm.getTenthKeyStroke()
+      expect(wrapper.vm.tenthKeyStroke).toEqual(0)
     })
   })
 
@@ -174,12 +186,42 @@ describe('Atoms.vue', () => {
     })
   })
 
-  describe('upgrade_unlockKeystroke', () => {
-    it('unlockedKeystroke to true', () => {
-      wrapper.setData({ maintainUnlocked: false })
-      expect(wrapper.vm.maintainUnlocked).toEqual(false)
-      wrapper.vm.upgrade_unlockKeystroke()
-      expect(wrapper.vm.maintainUnlocked).toEqual(true)
+  describe('upgrade_unlockKeyStroke', () => {
+    it('keyStrokeUnlocked to true', () => {
+      wrapper.setData({ keyStrokeUnlocked: false })
+      expect(wrapper.vm.keyStrokeUnlocked).toEqual(false)
+      wrapper.vm.upgrade_unlockKeyStroke()
+      expect(wrapper.vm.keyStrokeUnlocked).toEqual(true)
+    })
+  })
+
+  describe('upgrade_activateTenthClick', () => {
+    it('switch tenthClickActivated to true', () => {
+      wrapper.setData({ tenthClickActivated: false })
+      expect(wrapper.vm.tenthClickActivated).toEqual(false)
+      wrapper.vm.upgrade_activateTenthClick()
+      expect(wrapper.vm.tenthClickActivated).toEqual(true)
+    })
+    it('keep tenthClickActivated to true', () => {
+      wrapper.setData({ tenthClickActivated: true })
+      expect(wrapper.vm.tenthClickActivated).toEqual(true)
+      wrapper.vm.upgrade_activateTenthClick()
+      expect(wrapper.vm.tenthClickActivated).toEqual(true)
+    })
+  })
+
+  describe('upgrade_activateTenthKeyStroke', () => {
+    it('switch tenthKeyStrokeActivated to true', () => {
+      wrapper.setData({ tenthKeyStrokeActivated: false })
+      expect(wrapper.vm.tenthKeyStrokeActivated).toEqual(false)
+      wrapper.vm.upgrade_activateTenthKeyStroke()
+      expect(wrapper.vm.tenthKeyStrokeActivated).toEqual(true)
+    })
+    it('keep tenthKeyStrokeActivated to true', () => {
+      wrapper.setData({ tenthKeyStrokeActivated: true })
+      expect(wrapper.vm.tenthKeyStrokeActivated).toEqual(true)
+      wrapper.vm.upgrade_activateTenthKeyStroke()
+      expect(wrapper.vm.tenthKeyStrokeActivated).toEqual(true)
     })
   })
 
