@@ -16,16 +16,28 @@ describe('Atoms.vue', () => {
   })
 
   describe('atomClick', () => {
-    it('it increases atomsNumber by the incrementValue: 1', () => {
+    it('increases atomsNumber by the incrementValue: 1', () => {
       wrapper.setData({ atomsNumber: 0, incrementValue: 1 })
       expect(wrapper.vm.atomsNumber).toEqual(0)
       wrapper.vm.atomClick()
       expect(wrapper.vm.atomsNumber).toEqual(1)
     })
+    it('calls getTenthClick() if activated', () => {
+      wrapper.setData({ tenthClickActivated: true, tenthClick: 0 })
+      expect(wrapper.vm.tenthClick).toEqual(0)
+      wrapper.vm.atomClick()
+      expect(wrapper.vm.tenthClick).toEqual(1)
+    })
+    it("doesn't call getTenthClick() if activated", () => {
+      wrapper.setData({ tenthClickActivated: false, tenthClick: 0 })
+      expect(wrapper.vm.tenthClick).toEqual(0)
+      wrapper.vm.atomClick()
+      expect(wrapper.vm.tenthClick).toEqual(0)
+    })
   })
 
   describe('atomKeyStrike', () => {
-    it('it increases atomsNumber by half the incrementValue: 1', () => {
+    it('increases atomsNumber by half the incrementValue: 1', () => {
       wrapper.setData({ atomsNumber: 0, incrementValue: 1 })
       expect(wrapper.vm.atomsNumber).toEqual(0)
       wrapper.vm.atomKeyStrike()
@@ -34,23 +46,53 @@ describe('Atoms.vue', () => {
   })
 
   describe('atomBuying', () => {
-    it('it increases atomsNumber by the incrementValue: 1', () => {
+    it('increases atomsNumber by the incrementValue: 1', () => {
       wrapper.setData({ atomsNumber: 0, incrementValue: 1 })
       expect(wrapper.vm.atomsNumber).toEqual(0)
       wrapper.vm.atomBuying()
       expect(wrapper.vm.atomsNumber).toEqual(1)
     })
-    it('it increases atomsNumber by the incrementValue: 2', () => {
+    it('increases atomsNumber by the incrementValue: 2', () => {
       wrapper.setData({ atomsNumber: 0, incrementValue: 2 })
       expect(wrapper.vm.atomsNumber).toEqual(0)
       wrapper.vm.atomBuying()
       expect(wrapper.vm.atomsNumber).toEqual(2)
     })
-    it('it increases atomsNumber by half the incrementValue: 1', () => {
+    it('increases atomsNumber by half the incrementValue: 1', () => {
       wrapper.setData({ atomsNumber: 0, incrementValue: 1 })
       expect(wrapper.vm.atomsNumber).toEqual(0)
       wrapper.vm.atomBuying(0.5)
       expect(wrapper.vm.atomsNumber).toEqual(0.5)
+    })
+  })
+
+  describe('getTenthClick', () => {
+    it('increases the tenthClick by 1', () => {
+      wrapper.setData({ tenthClick: 0 })
+      expect(wrapper.vm.tenthClick).toEqual(0)
+      wrapper.vm.getTenthClick()
+      expect(wrapper.vm.tenthClick).toEqual(1)
+    })
+    it('bring the tenthClick to 0', () => {
+      wrapper.setData({ tenthClick: 9 })
+      expect(wrapper.vm.tenthClick).toEqual(9)
+      wrapper.vm.getTenthClick()
+      expect(wrapper.vm.tenthClick).toEqual(0)
+    })
+  })
+
+  describe('upgrade_activateTenthClick', () => {
+    it('switch tenthClickActivated to true', () => {
+      wrapper.setData({ tenthClickActivated: false })
+      expect(wrapper.vm.tenthClickActivated).toEqual(false)
+      wrapper.vm.upgrade_activateTenthClick()
+      expect(wrapper.vm.tenthClickActivated).toEqual(true)
+    })
+    it('keep tenthClickActivated to true', () => {
+      wrapper.setData({ tenthClickActivated: true })
+      expect(wrapper.vm.tenthClickActivated).toEqual(true)
+      wrapper.vm.upgrade_activateTenthClick()
+      expect(wrapper.vm.tenthClickActivated).toEqual(true)
     })
   })
 

@@ -5,6 +5,7 @@
     <ul>
       <li>Add testing</li>
       <li>Create Atoms Era</li>
+      <li>Add features (click, tenthClick)</li>
     </ul>
     <h3>V.0.1.0 - Genesis - 07/04/19</h3>
     <ul>

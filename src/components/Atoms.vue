@@ -7,18 +7,23 @@
       <div class="atom-container">
         <h2>
           <span>{{ Math.floor(atomsNumber) }} {{ atomsNumber === 1 ? 'Atom' : 'Atoms' }}</span>
-          <br />
-          <span v-if="proteinsNumber"
-            >{{ proteinsNumber > 9999 ? proteinsNumber.toExponential() : proteinsNumber }}
-            {{ atomsNumber === 1 ? 'Protein' : 'Proteins' }}</span
-          >
+        </h2>
+        <div v-if="tenthClickActivated">
+          <span v-for="(tenth, i) in new Array(tenthClick)" :key="i + 'tenth'">o</span>
+          <span v-for="(empty, i) in new Array(10 - tenthClick)" :key="i + 'empty'">-</span>
+        </div>
+        <h2>
+          <span v-if="proteinsNumber">
+            {{ proteinsNumber > 9999 ? proteinsNumber.toExponential() : proteinsNumber }}
+            {{ atomsNumber === 1 ? 'Protein' : 'Proteins' }}
+          </span>
         </h2>
 
         <div>
           <div>{{ incrementValue === 1 ? 'Atom' : 'Atoms' }} per Click : {{ incrementValue }}</div>
 
           <div>
-            <button @click="atomClick">
+            <button type="button" @mousedown="atomClick">
               Add 1
               <span :class="maintainUnlocked ? 'underlined' : ''">A</span>tom
             </button>
@@ -46,6 +51,8 @@ export default {
       // Resources
       atomsNumber: 0,
       proteinsNumber: 0,
+      tenthClick: 0,
+      tenthClickActivated: false,
       // Resources Multiplier
       incrementValue: 1,
       // Upgrades
@@ -65,6 +72,7 @@ export default {
     // Atoms Actions
     atomClick() {
       this.$emit('clicked')
+      this.tenthClickActivated && this.getTenthClick()
       this.atomBuying()
     },
     atomKeyStrike() {
@@ -72,6 +80,14 @@ export default {
     },
     atomBuying(modifier = 1) {
       this.atomsNumber += this.incrementValue * modifier
+    },
+    getTenthClick() {
+      if (this.tenthClick >= 9) {
+        this.tenthClick = 0
+        this.atomBuying()
+      } else {
+        this.tenthClick++
+      }
     },
     // Proteins Actions
     getProteins() {
@@ -93,6 +109,9 @@ export default {
     upgrade_unlockKeystroke() {
       this.maintainUnlocked = true
       this.$emit('unlockKeystroke')
+    },
+    upgrade_activateTenthClick() {
+      this.tenthClickActivated = true
     },
     isUnlocked(upgrade) {
       return this.proteinsNumber >= upgrade.proteinsNeeded
