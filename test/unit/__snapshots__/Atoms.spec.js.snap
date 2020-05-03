@@ -6,6 +6,8 @@ Object {
   "incrementValue": 1,
   "maintainUnlocked": false,
   "proteinsNumber": 0,
+  "tenthClick": 0,
+  "tenthClickActivated": false,
   "upgrades": Array [
     Object {
       "action": "unlockKeystroke",
@@ -16,6 +18,11 @@ Object {
       "action": "doubleIncrement",
       "proteinsNeeded": 3,
       "text": "Double Atoms per click",
+    },
+    Object {
+      "action": "activateTenthClick",
+      "proteinsNeeded": 5,
+      "text": "Gain 1 click per 10 clicks",
     },
   ],
   "upgradesBought": Array [],
@@ -38,9 +45,11 @@ exports[`Atoms.vue should render correct contents 1`] = `
         <span>
           0 Atoms
         </span>
-         
-        <br />
-         
+      </h2>
+       
+      <!---->
+       
+      <h2>
         <!---->
       </h2>
        
@@ -50,7 +59,9 @@ exports[`Atoms.vue should render correct contents 1`] = `
         </div>
          
         <div>
-          <button>
+          <button
+            type="button"
+          >
             
             Add 1
             
@@ -65,6 +76,9 @@ exports[`Atoms.vue should render correct contents 1`] = `
         </div>
          
         <div>
+          <div>
+            <!---->
+          </div>
           <div>
             <!---->
           </div>

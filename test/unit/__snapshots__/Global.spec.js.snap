@@ -58,9 +58,11 @@ exports[`Global.vue should render correct contents 1`] = `
               <span>
                 0 Atoms
               </span>
-               
-              <br />
-               
+            </h2>
+             
+            <!---->
+             
+            <h2>
               <!---->
             </h2>
              
@@ -70,7 +72,9 @@ exports[`Global.vue should render correct contents 1`] = `
               </div>
                
               <div>
-                <button>
+                <button
+                  type="button"
+                >
                   
             Add 1
             
@@ -85,6 +89,9 @@ exports[`Global.vue should render correct contents 1`] = `
               </div>
                
               <div>
+                <div>
+                  <!---->
+                </div>
                 <div>
                   <!---->
                 </div>
@@ -171,6 +178,10 @@ exports[`Global.vue should render correct contents 1`] = `
            
           <li>
             Create Atoms Era
+          </li>
+           
+          <li>
+            Add features (click, tenthClick)
           </li>
         </ul>
          

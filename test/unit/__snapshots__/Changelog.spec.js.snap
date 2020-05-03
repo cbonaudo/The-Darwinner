@@ -20,6 +20,10 @@ exports[`Changelog.vue should render correct contents 1`] = `
     <li>
       Create Atoms Era
     </li>
+     
+    <li>
+      Add features (click, tenthClick)
+    </li>
   </ul>
    
   <h3>
