@@ -12,31 +12,31 @@ export const upgrades = [
   {
     text: 'Gain 1 click per 10 clicks',
     action: 'activateTenthClick',
-    proteinsNeeded: 5
+    proteinsNeeded: 6
   },
   {
     text: 'Double Atoms per click',
     action: 'doubleIncrement',
-    proteinsNeeded: 7
+    proteinsNeeded: 10
   },
   {
     text: 'Double Atoms per click',
     action: 'doubleIncrement',
-    proteinsNeeded: 9
+    proteinsNeeded: 15
   },
   {
     text: 'Double Atoms per click',
     action: 'doubleIncrement',
-    proteinsNeeded: 11
+    proteinsNeeded: 21
   },
   {
     text: 'Double Atoms per click',
     action: 'doubleIncrement',
-    proteinsNeeded: 13
+    proteinsNeeded: 28
   },
   {
     text: 'Double Atoms per click',
     action: 'doubleIncrement',
-    proteinsNeeded: 3
+    proteinsNeeded: 36
   }
 ]
