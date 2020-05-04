@@ -20,9 +20,9 @@ export const upgrades = [
     proteinsNeeded: 10
   },
   {
-    text: 'Double Atoms per click',
-    action: 'doubleIncrement',
-    proteinsNeeded: 15
+    text: 'Activate Atoms per tick',
+    action: 'activateTick',
+    proteinsNeeded: 1
   },
   {
     text: 'Double Atoms per click',

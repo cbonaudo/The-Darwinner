@@ -2,6 +2,7 @@ import Atoms from '@/components/Atoms'
 import { mount } from '@vue/test-utils'
 
 describe('Atoms.vue', () => {
+  jest.useFakeTimers()
   let wrapper
 
   beforeEach(() => {
@@ -133,6 +134,22 @@ describe('Atoms.vue', () => {
     })
   })
 
+  // Tick Actions
+  describe('tickActions', () => {
+    it('increase from incrementValue', () => {
+      wrapper.setData({ incrementValue: 1, tickActivated: true, atomsNumber: 1 })
+      expect(wrapper.vm.atomsNumber).toEqual(1)
+      wrapper.vm.tickActions()
+      expect(wrapper.vm.atomsNumber).toEqual(2)
+    })
+    it('incrementValue increase to 64 from 32', () => {
+      wrapper.setData({ incrementValue: 10, tickActivated: false, atomsNumber: 1 })
+      expect(wrapper.vm.atomsNumber).toEqual(1)
+      wrapper.vm.tickActions()
+      expect(wrapper.vm.atomsNumber).toEqual(1)
+    })
+  })
+
   // Upgrades
   describe('useUpgrade', () => {
     it('splice the upgrades array', () => {
@@ -185,7 +202,6 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.incrementValue).toEqual(64)
     })
   })
-
   describe('upgrade_unlockKeyStroke', () => {
     it('keyStrokeUnlocked to true', () => {
       wrapper.setData({ keyStrokeUnlocked: false })
@@ -194,7 +210,6 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.keyStrokeUnlocked).toEqual(true)
     })
   })
-
   describe('upgrade_activateTenthClick', () => {
     it('switch tenthClickActivated to true', () => {
       wrapper.setData({ tenthClickActivated: false })
@@ -209,7 +224,6 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.tenthClickActivated).toEqual(true)
     })
   })
-
   describe('upgrade_activateTenthKeyStroke', () => {
     it('switch tenthKeyStrokeActivated to true', () => {
       wrapper.setData({ tenthKeyStrokeActivated: false })
@@ -222,6 +236,20 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.tenthKeyStrokeActivated).toEqual(true)
       wrapper.vm.upgrade_activateTenthKeyStroke()
       expect(wrapper.vm.tenthKeyStrokeActivated).toEqual(true)
+    })
+  })
+  describe('upgrade_activateTick', () => {
+    it('switch tickActivated to true', () => {
+      wrapper.setData({ tickActivated: false })
+      expect(wrapper.vm.tickActivated).toEqual(false)
+      wrapper.vm.upgrade_activateTick()
+      expect(wrapper.vm.tickActivated).toEqual(true)
+    })
+    it('keep tickActivated to true', () => {
+      wrapper.setData({ tickActivated: true })
+      expect(wrapper.vm.tickActivated).toEqual(true)
+      wrapper.vm.upgrade_activateTick()
+      expect(wrapper.vm.tickActivated).toEqual(true)
     })
   })
 
@@ -245,6 +273,15 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.atomsNumber).toEqual(100)
       wrapper.vm.resetAtoms()
       expect(wrapper.vm.atomsNumber).toEqual(0)
+    })
+  })
+
+  // HOOKS
+  describe('created', () => {
+    it('trigger tickActions every second', async () => {
+      wrapper.setData({ tickActivated: true })
+      jest.runTimersToTime(1500)
+      await expect(wrapper.vm.atomsNumber).toEqual(1)
     })
   })
 })

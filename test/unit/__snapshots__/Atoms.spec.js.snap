@@ -10,6 +10,7 @@ Object {
   "tenthClickActivated": false,
   "tenthKeyStroke": 0,
   "tenthKeyStrokeActivated": false,
+  "tickActivated": false,
   "upgrades": Array [
     Object {
       "action": "unlockKeyStroke",
@@ -32,9 +33,9 @@ Object {
       "text": "Gain 1 keystroke per 10 keystroke",
     },
     Object {
-      "action": "doubleIncrement",
-      "proteinsNeeded": 15,
-      "text": "Double Atoms per click",
+      "action": "activateTick",
+      "proteinsNeeded": 1,
+      "text": "Activate Atoms per tick",
     },
     Object {
       "action": "doubleIncrement",
@@ -69,6 +70,10 @@ exports[`Atoms.vue should render correct contents 1`] = `
       class="atom-container"
     >
       <h2>
+        <!---->
+      </h2>
+       
+      <h2>
         <span>
           0 Atoms
         </span>
@@ -78,57 +83,53 @@ exports[`Atoms.vue should render correct contents 1`] = `
        
       <!---->
        
-      <h2>
-        <!---->
-      </h2>
+      <div>
+        Atom per Click : 1
+      </div>
+       
+      <!---->
+       
+      <div>
+        <button
+          type="button"
+        >
+          
+          Add 1
+          
+          <span
+            class=""
+          >
+            A
+          </span>
+          tom
+        
+        </button>
+      </div>
        
       <div>
         <div>
-          Atom per Click : 1
+          <!---->
         </div>
-         
         <div>
-          <button
-            type="button"
-          >
-            
-            Add 1
-            
-            <span
-              class=""
-            >
-              A
-            </span>
-            tom
-          
-          </button>
+          <!---->
         </div>
-         
         <div>
-          <div>
-            <!---->
-          </div>
-          <div>
-            <!---->
-          </div>
-          <div>
-            <!---->
-          </div>
-          <div>
-            <!---->
-          </div>
-          <div>
-            <!---->
-          </div>
-          <div>
-            <!---->
-          </div>
-          <div>
-            <!---->
-          </div>
-          <div>
-            <!---->
-          </div>
+          <!---->
+        </div>
+        <div>
+          <!---->
+        </div>
+        <div>
+          <!---->
+        </div>
+        <div>
+          <!---->
+        </div>
+        <div>
+          <!---->
+        </div>
+        <div>
+          <!---->
         </div>
       </div>
     </div>

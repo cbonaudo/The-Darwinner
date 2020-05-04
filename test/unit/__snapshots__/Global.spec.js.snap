@@ -55,6 +55,10 @@ exports[`Global.vue should render correct contents 1`] = `
             class="atom-container"
           >
             <h2>
+              <!---->
+            </h2>
+             
+            <h2>
               <span>
                 0 Atoms
               </span>
@@ -64,57 +68,53 @@ exports[`Global.vue should render correct contents 1`] = `
              
             <!---->
              
-            <h2>
-              <!---->
-            </h2>
+            <div>
+              Atom per Click : 1
+            </div>
+             
+            <!---->
+             
+            <div>
+              <button
+                type="button"
+              >
+                
+          Add 1
+          
+                <span
+                  class=""
+                >
+                  A
+                </span>
+                tom
+        
+              </button>
+            </div>
              
             <div>
               <div>
-                Atom per Click : 1
+                <!---->
               </div>
-               
               <div>
-                <button
-                  type="button"
-                >
-                  
-            Add 1
-            
-                  <span
-                    class=""
-                  >
-                    A
-                  </span>
-                  tom
-          
-                </button>
+                <!---->
               </div>
-               
               <div>
-                <div>
-                  <!---->
-                </div>
-                <div>
-                  <!---->
-                </div>
-                <div>
-                  <!---->
-                </div>
-                <div>
-                  <!---->
-                </div>
-                <div>
-                  <!---->
-                </div>
-                <div>
-                  <!---->
-                </div>
-                <div>
-                  <!---->
-                </div>
-                <div>
-                  <!---->
-                </div>
+                <!---->
+              </div>
+              <div>
+                <!---->
+              </div>
+              <div>
+                <!---->
+              </div>
+              <div>
+                <!---->
+              </div>
+              <div>
+                <!---->
+              </div>
+              <div>
+                <!---->
               </div>
             </div>
           </div>
