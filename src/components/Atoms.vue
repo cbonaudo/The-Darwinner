@@ -160,7 +160,6 @@ export default {
   },
   created() {
     setInterval(() => {
-      console.log('hello')
       this.tickActions()
     }, 1000)
   }
