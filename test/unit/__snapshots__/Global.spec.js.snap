@@ -93,28 +93,39 @@ exports[`Global.vue should render correct contents 1`] = `
              
             <div>
               <div>
-                <!---->
+                <button
+                  disabled="disabled"
+                >
+                  Activate Atoms per tick
+                </button>
               </div>
               <div>
-                <!---->
+                <button
+                  disabled="disabled"
+                >
+                  Allow to use "A" to generate half Atoms
+                </button>
               </div>
               <div>
-                <!---->
+                <button
+                  disabled="disabled"
+                >
+                  Double Atoms per click
+                </button>
               </div>
               <div>
-                <!---->
+                <button
+                  disabled="disabled"
+                >
+                  Gain 1 click per 10 clicks
+                </button>
               </div>
               <div>
-                <!---->
-              </div>
-              <div>
-                <!---->
-              </div>
-              <div>
-                <!---->
-              </div>
-              <div>
-                <!---->
+                <button
+                  disabled="disabled"
+                >
+                  Gain 1 keystroke per 10 keystroke
+                </button>
               </div>
             </div>
           </div>

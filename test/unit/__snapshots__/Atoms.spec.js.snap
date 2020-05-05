@@ -13,29 +13,29 @@ Object {
   "tickActivated": false,
   "upgrades": Array [
     Object {
-      "action": "unlockKeyStroke",
+      "action": "activateTick",
       "proteinsNeeded": 1,
+      "text": "Activate Atoms per tick",
+    },
+    Object {
+      "action": "unlockKeyStroke",
+      "proteinsNeeded": 3,
       "text": "Allow to use \\"A\\" to generate half Atoms",
     },
     Object {
       "action": "doubleIncrement",
-      "proteinsNeeded": 3,
+      "proteinsNeeded": 6,
       "text": "Double Atoms per click",
     },
     Object {
       "action": "activateTenthClick",
-      "proteinsNeeded": 6,
+      "proteinsNeeded": 10,
       "text": "Gain 1 click per 10 clicks",
     },
     Object {
       "action": "activateTenthKeyStroke",
-      "proteinsNeeded": 10,
+      "proteinsNeeded": 15,
       "text": "Gain 1 keystroke per 10 keystroke",
-    },
-    Object {
-      "action": "activateTick",
-      "proteinsNeeded": 1,
-      "text": "Activate Atoms per tick",
     },
     Object {
       "action": "doubleIncrement",
@@ -108,28 +108,39 @@ exports[`Atoms.vue should render correct contents 1`] = `
        
       <div>
         <div>
-          <!---->
+          <button
+            disabled="disabled"
+          >
+            Activate Atoms per tick
+          </button>
         </div>
         <div>
-          <!---->
+          <button
+            disabled="disabled"
+          >
+            Allow to use "A" to generate half Atoms
+          </button>
         </div>
         <div>
-          <!---->
+          <button
+            disabled="disabled"
+          >
+            Double Atoms per click
+          </button>
         </div>
         <div>
-          <!---->
+          <button
+            disabled="disabled"
+          >
+            Gain 1 click per 10 clicks
+          </button>
         </div>
         <div>
-          <!---->
-        </div>
-        <div>
-          <!---->
-        </div>
-        <div>
-          <!---->
-        </div>
-        <div>
-          <!---->
+          <button
+            disabled="disabled"
+          >
+            Gain 1 keystroke per 10 keystroke
+          </button>
         </div>
       </div>
     </div>

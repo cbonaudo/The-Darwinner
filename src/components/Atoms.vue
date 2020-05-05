@@ -45,8 +45,12 @@
         </div>
 
         <div>
-          <div v-for="(upgrade, i) in upgrades" :key="i">
-            <button @click="useUpgrade(upgrade, i)" v-if="isUnlocked(upgrade)">{{ upgrade.text }}</button>
+          <div v-for="(empty, i) in new Array(5)" :key="i">
+            <button
+              v-if="upgrades[i]"
+              @click="isUnlocked(upgrades[i]) && useUpgrade(i)"
+              :disabled="isUnlocked(upgrades[i]) ? false : true"
+            >{{ upgrades[i].text }}</button>
           </div>
         </div>
       </div>
@@ -128,10 +132,10 @@ export default {
       this.tickActivated && this.atomBuying()
     },
     // Upgrades
-    useUpgrade(upgrade, i) {
-      this['upgrade_' + upgrade.action]()
-      this.proteinsNumber -= upgrade.proteinsNeeded
-      this.upgradesBought.push(upgrade)
+    useUpgrade(i) {
+      this['upgrade_' + this.upgrades[i].action]()
+      this.proteinsNumber -= this.upgrades[i].proteinsNeeded
+      this.upgradesBought.push(this.upgrades[i])
       this.upgrades.splice(i, 1)
     },
     upgrade_doubleIncrement() {
