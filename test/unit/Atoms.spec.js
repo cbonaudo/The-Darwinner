@@ -93,7 +93,6 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.tenthClick).toEqual(0)
     })
   })
-
   describe('getTenthKeyStroke', () => {
     it('increases the tenthKeyStroke by 1', () => {
       wrapper.setData({ tenthKeyStroke: 0 })
@@ -106,6 +105,20 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.tenthKeyStroke).toEqual(9)
       wrapper.vm.getTenthKeyStroke()
       expect(wrapper.vm.tenthKeyStroke).toEqual(0)
+    })
+  })
+  describe('getTenthTick', () => {
+    it('increases the tenthTick by 1', () => {
+      wrapper.setData({ tenthTick: 0 })
+      expect(wrapper.vm.tenthTick).toEqual(0)
+      wrapper.vm.getTenthTick()
+      expect(wrapper.vm.tenthTick).toEqual(1)
+    })
+    it('bring the tenthTick to 0', () => {
+      wrapper.setData({ tenthTick: 9 })
+      expect(wrapper.vm.tenthTick).toEqual(9)
+      wrapper.vm.getTenthTick()
+      expect(wrapper.vm.tenthTick).toEqual(0)
     })
   })
 
@@ -147,6 +160,12 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.atomsNumber).toEqual(1)
       wrapper.vm.tickActions()
       expect(wrapper.vm.atomsNumber).toEqual(1)
+    })
+    it('getTenthTick', () => {
+      wrapper.setData({ tickActivated: true, tenthTickActivated: true, tenthTick: 0 })
+      expect(wrapper.vm.tenthTick).toEqual(0)
+      wrapper.vm.tickActions()
+      expect(wrapper.vm.tenthTick).toEqual(1)
     })
   })
 
@@ -229,6 +248,20 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.tenthKeyStrokeActivated).toEqual(true)
       wrapper.vm.upgrade_activateTenthKeyStroke()
       expect(wrapper.vm.tenthKeyStrokeActivated).toEqual(true)
+    })
+  })
+  describe('upgrade_activateTenthTick', () => {
+    it('switch tenthTickActivated to true', () => {
+      wrapper.setData({ tenthTickActivated: false })
+      expect(wrapper.vm.tenthTickActivated).toEqual(false)
+      wrapper.vm.upgrade_activateTenthTick()
+      expect(wrapper.vm.tenthTickActivated).toEqual(true)
+    })
+    it('keep tenthTickActivated to true', () => {
+      wrapper.setData({ tenthTickActivated: true })
+      expect(wrapper.vm.tenthTickActivated).toEqual(true)
+      wrapper.vm.upgrade_activateTenthTick()
+      expect(wrapper.vm.tenthTickActivated).toEqual(true)
     })
   })
   describe('upgrade_activateTick', () => {

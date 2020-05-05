@@ -1,6 +1,6 @@
 export const upgrades = [
   {
-    text: 'Activate Atoms per tick',
+    text: 'Activate atoms per tick',
     action: 'activateTick',
     proteinsNeeded: 1
   },
@@ -10,7 +10,7 @@ export const upgrades = [
     proteinsNeeded: 3
   },
   {
-    text: 'Double Atoms per click',
+    text: 'Double atoms per click',
     action: 'doubleIncrement',
     proteinsNeeded: 6
   },
@@ -20,22 +20,22 @@ export const upgrades = [
     proteinsNeeded: 10
   },
   {
-    text: 'Gain 1 keystroke per 10 keystroke',
+    text: 'Gain 1 keystroke per 10 keystrokes',
     action: 'activateTenthKeyStroke',
     proteinsNeeded: 15
   },
   {
-    text: 'Double Atoms per click',
-    action: 'doubleIncrement',
+    text: 'Gain 1 tick per 10 ticks',
+    action: 'activateTenthTick',
     proteinsNeeded: 21
   },
   {
-    text: 'Double Atoms per click',
+    text: 'Double atoms per click',
     action: 'doubleIncrement',
     proteinsNeeded: 28
   },
   {
-    text: 'Double Atoms per click',
+    text: 'Double atoms per click',
     action: 'doubleIncrement',
     proteinsNeeded: 36
   }

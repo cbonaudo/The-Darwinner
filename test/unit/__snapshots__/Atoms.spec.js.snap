@@ -10,12 +10,14 @@ Object {
   "tenthClickActivated": false,
   "tenthKeyStroke": 0,
   "tenthKeyStrokeActivated": false,
+  "tenthTick": 0,
+  "tenthTickActivated": false,
   "tickActivated": false,
   "upgrades": Array [
     Object {
       "action": "activateTick",
       "proteinsNeeded": 1,
-      "text": "Activate Atoms per tick",
+      "text": "Activate atoms per tick",
     },
     Object {
       "action": "unlockKeyStroke",
@@ -25,7 +27,7 @@ Object {
     Object {
       "action": "doubleIncrement",
       "proteinsNeeded": 6,
-      "text": "Double Atoms per click",
+      "text": "Double atoms per click",
     },
     Object {
       "action": "activateTenthClick",
@@ -35,22 +37,22 @@ Object {
     Object {
       "action": "activateTenthKeyStroke",
       "proteinsNeeded": 15,
-      "text": "Gain 1 keystroke per 10 keystroke",
+      "text": "Gain 1 keystroke per 10 keystrokes",
     },
     Object {
-      "action": "doubleIncrement",
+      "action": "activateTenthTick",
       "proteinsNeeded": 21,
-      "text": "Double Atoms per click",
+      "text": "Gain 1 tick per 10 ticks",
     },
     Object {
       "action": "doubleIncrement",
       "proteinsNeeded": 28,
-      "text": "Double Atoms per click",
+      "text": "Double atoms per click",
     },
     Object {
       "action": "doubleIncrement",
       "proteinsNeeded": 36,
-      "text": "Double Atoms per click",
+      "text": "Double atoms per click",
     },
   ],
   "upgradesBought": Array [],
@@ -78,6 +80,8 @@ exports[`Atoms.vue should render correct contents 1`] = `
           0 Atoms
         </span>
       </h2>
+       
+      <!---->
        
       <!---->
        
@@ -111,7 +115,7 @@ exports[`Atoms.vue should render correct contents 1`] = `
           <button
             disabled="disabled"
           >
-            Activate Atoms per tick 0%
+            Activate atoms per tick 0%
           </button>
         </div>
         <div>
@@ -125,7 +129,7 @@ exports[`Atoms.vue should render correct contents 1`] = `
           <button
             disabled="disabled"
           >
-            Double Atoms per click 0%
+            Double atoms per click 0%
           </button>
         </div>
         <div>
@@ -139,7 +143,7 @@ exports[`Atoms.vue should render correct contents 1`] = `
           <button
             disabled="disabled"
           >
-            Gain 1 keystroke per 10 keystroke 0%
+            Gain 1 keystroke per 10 keystrokes 0%
           </button>
         </div>
       </div>

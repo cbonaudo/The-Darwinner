@@ -31,6 +31,12 @@
           <span v-for="(empty, i) in new Array(10 - tenthKeyStroke)" :key="i + 'emptyKS'">-</span>
         </div>
 
+        <div v-if="tenthTickActivated">
+          Tenth Tick :
+          <span v-for="(tenth, i) in new Array(tenthTick)" :key="i + 'tenthC'">o</span>
+          <span v-for="(empty, i) in new Array(10 - tenthTick)" :key="i + 'emptyC'">-</span>
+        </div>
+
         <div>{{ incrementValue === 1 ? 'Atom' : 'Atoms' }} per Click : {{ incrementValue }}</div>
 
         <div
@@ -50,7 +56,7 @@
               v-if="upgrades[i]"
               @click="isUnlocked(upgrades[i]) && useUpgrade(i)"
               :disabled="isUnlocked(upgrades[i]) ? false : true"
-            >{{ upgrades[i].text }} {{ getPercentForUpgrade(i)}}</button>
+            >{{ upgrades[i].text }} {{ getPercentForUpgrade(i) }}</button>
           </div>
         </div>
       </div>
@@ -69,10 +75,13 @@ export default {
       // Resources
       atomsNumber: 0,
       proteinsNumber: 0,
+      // Tenths
       tenthClick: 0,
       tenthClickActivated: false,
       tenthKeyStroke: 0,
       tenthKeyStrokeActivated: false,
+      tenthTick: 0,
+      tenthTickActivated: false,
       // Resources Multiplier
       incrementValue: 1,
       // Tick Resources
@@ -120,6 +129,14 @@ export default {
         this.tenthKeyStroke++
       }
     },
+    getTenthTick() {
+      if (this.tenthTick >= 9) {
+        this.tenthTick = 0
+        this.atomBuying()
+      } else {
+        this.tenthTick++
+      }
+    },
     // Proteins Actions
     getProteins() {
       if (this.atomsNumber >= atomCeiling) {
@@ -129,7 +146,11 @@ export default {
     },
     // Tick Actions
     tickActions() {
-      this.tickActivated && this.atomBuying()
+      if (!this.tickActivated) {
+        return
+      }
+      this.atomBuying()
+      this.tenthTickActivated && this.getTenthTick()
     },
     // Upgrades
     useUpgrade(i) {
@@ -150,6 +171,9 @@ export default {
     },
     upgrade_activateTenthKeyStroke() {
       this.tenthKeyStrokeActivated = true
+    },
+    upgrade_activateTenthTick() {
+      this.tenthTickActivated = true
     },
     upgrade_activateTick() {
       this.tickActivated = true

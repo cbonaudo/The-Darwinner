@@ -68,6 +68,8 @@ exports[`Global.vue should render correct contents 1`] = `
              
             <!---->
              
+            <!---->
+             
             <div>
               Atom per Click : 1
             </div>
@@ -96,7 +98,7 @@ exports[`Global.vue should render correct contents 1`] = `
                 <button
                   disabled="disabled"
                 >
-                  Activate Atoms per tick 0%
+                  Activate atoms per tick 0%
                 </button>
               </div>
               <div>
@@ -110,7 +112,7 @@ exports[`Global.vue should render correct contents 1`] = `
                 <button
                   disabled="disabled"
                 >
-                  Double Atoms per click 0%
+                  Double atoms per click 0%
                 </button>
               </div>
               <div>
@@ -124,7 +126,7 @@ exports[`Global.vue should render correct contents 1`] = `
                 <button
                   disabled="disabled"
                 >
-                  Gain 1 keystroke per 10 keystroke 0%
+                  Gain 1 keystroke per 10 keystrokes 0%
                 </button>
               </div>
             </div>
