@@ -111,35 +111,35 @@ exports[`Atoms.vue should render correct contents 1`] = `
           <button
             disabled="disabled"
           >
-            Activate Atoms per tick
+            Activate Atoms per tick 0%
           </button>
         </div>
         <div>
           <button
             disabled="disabled"
           >
-            Allow to use "A" to generate half Atoms
+            Allow to use "A" to generate half Atoms 0%
           </button>
         </div>
         <div>
           <button
             disabled="disabled"
           >
-            Double Atoms per click
+            Double Atoms per click 0%
           </button>
         </div>
         <div>
           <button
             disabled="disabled"
           >
-            Gain 1 click per 10 clicks
+            Gain 1 click per 10 clicks 0%
           </button>
         </div>
         <div>
           <button
             disabled="disabled"
           >
-            Gain 1 keystroke per 10 keystroke
+            Gain 1 keystroke per 10 keystroke 0%
           </button>
         </div>
       </div>

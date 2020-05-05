@@ -259,6 +259,21 @@ describe('Atoms.vue', () => {
     })
   })
 
+  describe('getPercentForUpgrade', () => {
+    it('is 11% when 1 protein, a few atoms, and 10 proteins needed', () => {
+      wrapper.setData({ proteinsNumber: 0, atomsNumber: 0, upgrades: [{ proteinsNeeded: 10 }] })
+      expect(wrapper.vm.getPercentForUpgrade(0)).toBe('0%')
+    })
+    it('is 11% when 1 protein, a few atoms, and 10 proteins needed', () => {
+      wrapper.setData({ proteinsNumber: 1, atomsNumber: 23, upgrades: [{ proteinsNeeded: 10 }] })
+      expect(wrapper.vm.getPercentForUpgrade(0)).toBe('11%')
+    })
+    it('is empty when above protein level', () => {
+      wrapper.setData({ proteinsNumber: 10, atomsNumber: 23, upgrades: [{ proteinsNeeded: 10 }] })
+      expect(wrapper.vm.getPercentForUpgrade(0)).toBe('')
+    })
+  })
+
   // DEBUG
   describe('resetAtoms', () => {
     it('reste atoms to 0', () => {

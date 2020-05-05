@@ -50,7 +50,7 @@
               v-if="upgrades[i]"
               @click="isUnlocked(upgrades[i]) && useUpgrade(i)"
               :disabled="isUnlocked(upgrades[i]) ? false : true"
-            >{{ upgrades[i].text }}</button>
+            >{{ upgrades[i].text }} {{ getPercentForUpgrade(i)}}</button>
           </div>
         </div>
       </div>
@@ -156,6 +156,13 @@ export default {
     },
     isUnlocked(upgrade) {
       return this.proteinsNumber >= upgrade.proteinsNeeded
+    },
+    getPercentForUpgrade(index) {
+      const upgrade = this.upgrades[index]
+      const atomsNeeded = upgrade.proteinsNeeded * atomCeiling
+      const atomsHoarded = this.proteinsNumber * atomCeiling + this.atomsNumber
+      const percent = (atomsHoarded / atomsNeeded) * 100
+      return percent < 100 ? `${Math.floor(percent)}%` : ''
     },
     // Debug
     resetAtoms() {
