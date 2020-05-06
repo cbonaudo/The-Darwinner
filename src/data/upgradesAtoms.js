@@ -30,13 +30,18 @@ export const upgrades = [
     proteinsNeeded: 21
   },
   {
-    text: 'Double atoms per click',
-    action: 'doubleIncrement',
+    text: 'Double tenth click value',
+    action: 'increaseTenthClick',
     proteinsNeeded: 28
   },
   {
-    text: 'Double atoms per click',
-    action: 'doubleIncrement',
+    text: 'Double tenth tick value',
+    action: 'increaseTenthTick',
     proteinsNeeded: 36
+  },
+  {
+    text: 'Double tenth keystroke value',
+    action: 'increaseTenthKeyStroke',
+    proteinsNeeded: 45
   }
 ]

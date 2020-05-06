@@ -78,10 +78,13 @@ export default {
       // Tenths
       tenthClick: 0,
       tenthClickActivated: false,
+      tenthClickIncrement: 1,
       tenthKeyStroke: 0,
       tenthKeyStrokeActivated: false,
+      tenthKeyStrokeIncrement: 0.5,
       tenthTick: 0,
       tenthTickActivated: false,
+      tenthTickIncrement: 1,
       // Resources Multiplier
       incrementValue: 1,
       // Tick Resources
@@ -116,7 +119,7 @@ export default {
     getTenthClick() {
       if (this.tenthClick >= 9) {
         this.tenthClick = 0
-        this.atomBuying()
+        this.atomBuying(this.tenthClickIncrement)
       } else {
         this.tenthClick++
       }
@@ -124,7 +127,7 @@ export default {
     getTenthKeyStroke() {
       if (this.tenthKeyStroke >= 9) {
         this.tenthKeyStroke = 0
-        this.atomBuying(0.5)
+        this.atomBuying(this.tenthKeyStrokeIncrement)
       } else {
         this.tenthKeyStroke++
       }
@@ -132,7 +135,7 @@ export default {
     getTenthTick() {
       if (this.tenthTick >= 9) {
         this.tenthTick = 0
-        this.atomBuying()
+        this.atomBuying(this.tenthTickIncrement)
       } else {
         this.tenthTick++
       }
@@ -169,11 +172,20 @@ export default {
     upgrade_activateTenthClick() {
       this.tenthClickActivated = true
     },
+    upgrade_increaseTenthClick() {
+      this.tenthClickIncrement *= 2
+    },
     upgrade_activateTenthKeyStroke() {
       this.tenthKeyStrokeActivated = true
     },
+    upgrade_increaseTenthKeyStroke() {
+      this.tenthKeyStrokeIncrement *= 2
+    },
     upgrade_activateTenthTick() {
       this.tenthTickActivated = true
+    },
+    upgrade_increaseTenthTick() {
+      this.tenthTickIncrement *= 2
     },
     upgrade_activateTick() {
       this.tickActivated = true

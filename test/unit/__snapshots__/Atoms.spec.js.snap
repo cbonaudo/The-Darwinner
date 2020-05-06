@@ -8,10 +8,13 @@ Object {
   "proteinsNumber": 0,
   "tenthClick": 0,
   "tenthClickActivated": false,
+  "tenthClickIncrement": 1,
   "tenthKeyStroke": 0,
   "tenthKeyStrokeActivated": false,
+  "tenthKeyStrokeIncrement": 0.5,
   "tenthTick": 0,
   "tenthTickActivated": false,
+  "tenthTickIncrement": 1,
   "tickActivated": false,
   "upgrades": Array [
     Object {
@@ -45,14 +48,19 @@ Object {
       "text": "Gain 1 tick per 10 ticks",
     },
     Object {
-      "action": "doubleIncrement",
+      "action": "increaseTenthClick",
       "proteinsNeeded": 28,
-      "text": "Double atoms per click",
+      "text": "Double tenth click value",
     },
     Object {
-      "action": "doubleIncrement",
+      "action": "increaseTenthTick",
       "proteinsNeeded": 36,
-      "text": "Double atoms per click",
+      "text": "Double tenth tick value",
+    },
+    Object {
+      "action": "increaseTenthKeyStroke",
+      "proteinsNeeded": 45,
+      "text": "Double tenth keystroke value",
     },
   ],
   "upgradesBought": Array [],

@@ -236,6 +236,20 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.tenthClickActivated).toEqual(true)
     })
   })
+  describe('upgrade_increaseTenthClick', () => {
+    it('increase tenthClickIncrement to 2 from 1', () => {
+      wrapper.setData({ tenthClickIncrement: 1 })
+      expect(wrapper.vm.tenthClickIncrement).toEqual(1)
+      wrapper.vm.upgrade_increaseTenthClick()
+      expect(wrapper.vm.tenthClickIncrement).toEqual(2)
+    })
+    it('keep tenthClickIncrement to 1 from 0.5', () => {
+      wrapper.setData({ tenthClickIncrement: 0.5 })
+      expect(wrapper.vm.tenthClickIncrement).toEqual(0.5)
+      wrapper.vm.upgrade_increaseTenthClick()
+      expect(wrapper.vm.tenthClickIncrement).toEqual(1)
+    })
+  })
   describe('upgrade_activateTenthKeyStroke', () => {
     it('switch tenthKeyStrokeActivated to true', () => {
       wrapper.setData({ tenthKeyStrokeActivated: false })
@@ -250,6 +264,20 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.tenthKeyStrokeActivated).toEqual(true)
     })
   })
+  describe('upgrade_increaseTenthKeyStroke', () => {
+    it('increase tenthKeyStrokeIncrement to 2 from 1', () => {
+      wrapper.setData({ tenthKeyStrokeIncrement: 1 })
+      expect(wrapper.vm.tenthKeyStrokeIncrement).toEqual(1)
+      wrapper.vm.upgrade_increaseTenthKeyStroke()
+      expect(wrapper.vm.tenthKeyStrokeIncrement).toEqual(2)
+    })
+    it('keep tenthKeyStrokeIncrement to 1 from 0.5', () => {
+      wrapper.setData({ tenthKeyStrokeIncrement: 0.5 })
+      expect(wrapper.vm.tenthKeyStrokeIncrement).toEqual(0.5)
+      wrapper.vm.upgrade_increaseTenthKeyStroke()
+      expect(wrapper.vm.tenthKeyStrokeIncrement).toEqual(1)
+    })
+  })
   describe('upgrade_activateTenthTick', () => {
     it('switch tenthTickActivated to true', () => {
       wrapper.setData({ tenthTickActivated: false })
@@ -262,6 +290,20 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.tenthTickActivated).toEqual(true)
       wrapper.vm.upgrade_activateTenthTick()
       expect(wrapper.vm.tenthTickActivated).toEqual(true)
+    })
+  })
+  describe('upgrade_increaseTenthTick', () => {
+    it('increase tenthTickIncrement to 2 from 1', () => {
+      wrapper.setData({ tenthTickIncrement: 1 })
+      expect(wrapper.vm.tenthTickIncrement).toEqual(1)
+      wrapper.vm.upgrade_increaseTenthTick()
+      expect(wrapper.vm.tenthTickIncrement).toEqual(2)
+    })
+    it('keep tenthTickIncrement to 1 from 0.5', () => {
+      wrapper.setData({ tenthTickIncrement: 0.5 })
+      expect(wrapper.vm.tenthTickIncrement).toEqual(0.5)
+      wrapper.vm.upgrade_increaseTenthTick()
+      expect(wrapper.vm.tenthTickIncrement).toEqual(1)
     })
   })
   describe('upgrade_activateTick', () => {
