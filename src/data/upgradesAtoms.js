@@ -10,8 +10,8 @@ export const upgrades = [
     proteinsNeeded: 3
   },
   {
-    text: 'Double atoms per click',
-    action: 'doubleIncrement',
+    text: 'Double all sources',
+    action: 'doubleGlobal',
     proteinsNeeded: 6
   },
   {

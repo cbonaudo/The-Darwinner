@@ -11,7 +11,6 @@
             {{ atomsNumber === 1 ? 'Protein' : 'Proteins' }}
           </span>
         </h2>
-
         <h2>
           <span>{{ Math.floor(atomsNumber) }} {{ atomsNumber === 1 ? 'Atom' : 'Atoms' }}</span>
         </h2>
@@ -21,7 +20,6 @@
           <span v-for="(tenth, i) in new Array(tenthClick)" :key="i + 'tenthC'">o</span>
           <span v-for="(empty, i) in new Array(10 - tenthClick)" :key="i + 'emptyC'">-</span>
         </div>
-
         <div v-if="tenthKeyStrokeActivated">
           Tenth Key Stroke :
           <span
@@ -30,18 +28,19 @@
           >o</span>
           <span v-for="(empty, i) in new Array(10 - tenthKeyStroke)" :key="i + 'emptyKS'">-</span>
         </div>
-
         <div v-if="tenthTickActivated">
           Tenth Tick :
-          <span v-for="(tenth, i) in new Array(tenthTick)" :key="i + 'tenthC'">o</span>
-          <span v-for="(empty, i) in new Array(10 - tenthTick)" :key="i + 'emptyC'">-</span>
+          <span v-for="(tenth, i) in new Array(tenthTick)" :key="i + 'tenthT'">o</span>
+          <span v-for="(empty, i) in new Array(10 - tenthTick)" :key="i + 'emptyT'">-</span>
         </div>
 
-        <div>{{ incrementValue === 1 ? 'Atom' : 'Atoms' }} per Click : {{ incrementValue }}</div>
-
+        <div>{{ clickIncrement !== 1 ? 'Atoms' : 'Atom' }} per Click : {{ clickIncrement }}</div>
         <div
           v-if="tickActivated"
-        >{{ incrementValue === 1 ? 'Atom' : 'Atoms' }} per Second : {{ incrementValue }}</div>
+        >{{ tickIncrement > 2 ? 'Atoms' : 'Atom' }} per Second : {{ tickIncrement }}</div>
+        <div
+          v-if="keyStrokeUnlocked"
+        >{{ keyStrokeIncrement !== 1 ? 'Atoms' : 'Atom' }} per Second : {{ keyStrokeIncrement }}</div>
 
         <div>
           <button type="button" @mousedown="atomClick">
@@ -75,6 +74,11 @@ export default {
       // Resources
       atomsNumber: 0,
       proteinsNumber: 0,
+      // Resources Multiplier
+      globalMultiplier: 1,
+      clickIncrement: 1,
+      tickIncrement: 1,
+      keyStrokeIncrement: 0.5,
       // Tenths
       tenthClick: 0,
       tenthClickActivated: false,
@@ -85,8 +89,6 @@ export default {
       tenthTick: 0,
       tenthTickActivated: false,
       tenthTickIncrement: 1,
-      // Resources Multiplier
-      incrementValue: 1,
       // Tick Resources
       tickActivated: false,
       // Upgrades
@@ -107,14 +109,14 @@ export default {
     atomClick() {
       this.$emit('clicked')
       this.tenthClickActivated && this.getTenthClick()
-      this.atomBuying()
+      this.atomBuying(this.clickIncrement)
     },
     atomKeyStroke() {
       this.tenthKeyStrokeActivated && this.getTenthKeyStroke()
-      this.atomBuying(0.5)
+      this.atomBuying(this.keyStrokeIncrement)
     },
     atomBuying(modifier = 1) {
-      this.atomsNumber += this.incrementValue * modifier
+      this.atomsNumber += this.globalMultiplier * modifier
     },
     getTenthClick() {
       if (this.tenthClick >= 9) {
@@ -152,7 +154,7 @@ export default {
       if (!this.tickActivated) {
         return
       }
-      this.atomBuying()
+      this.atomBuying(this.tickIncrement)
       this.tenthTickActivated && this.getTenthTick()
     },
     // Upgrades
@@ -162,8 +164,8 @@ export default {
       this.upgradesBought.push(this.upgrades[i])
       this.upgrades.splice(i, 1)
     },
-    upgrade_doubleIncrement() {
-      this.incrementValue *= 2
+    upgrade_doubleGlobal() {
+      this.globalMultiplier *= 2
     },
     upgrade_unlockKeyStroke() {
       this.keyStrokeUnlocked = true

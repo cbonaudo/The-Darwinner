@@ -3,7 +3,9 @@
 exports[`Atoms.vue should have correct starting data 1`] = `
 Object {
   "atomsNumber": 0,
-  "incrementValue": 1,
+  "clickIncrement": 1,
+  "globalMultiplier": 1,
+  "keyStrokeIncrement": 0.5,
   "keyStrokeUnlocked": false,
   "proteinsNumber": 0,
   "tenthClick": 0,
@@ -16,6 +18,7 @@ Object {
   "tenthTickActivated": false,
   "tenthTickIncrement": 1,
   "tickActivated": false,
+  "tickIncrement": 1,
   "upgrades": Array [
     Object {
       "action": "activateTick",
@@ -28,9 +31,9 @@ Object {
       "text": "Allow to use \\"A\\" to generate half Atoms",
     },
     Object {
-      "action": "doubleIncrement",
+      "action": "doubleGlobal",
       "proteinsNeeded": 6,
-      "text": "Double atoms per click",
+      "text": "Double all sources",
     },
     Object {
       "action": "activateTenthClick",
@@ -101,6 +104,8 @@ exports[`Atoms.vue should render correct contents 1`] = `
        
       <!---->
        
+      <!---->
+       
       <div>
         <button
           type="button"
@@ -137,7 +142,7 @@ exports[`Atoms.vue should render correct contents 1`] = `
           <button
             disabled="disabled"
           >
-            Double atoms per click 0%
+            Double all sources 0%
           </button>
         </div>
         <div>

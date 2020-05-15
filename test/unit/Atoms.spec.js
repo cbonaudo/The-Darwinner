@@ -17,11 +17,23 @@ describe('Atoms.vue', () => {
   })
 
   describe('atomClick', () => {
-    it('increases atomsNumber by the incrementValue: 1', () => {
-      wrapper.setData({ atomsNumber: 0, incrementValue: 1 })
+    it('increases atomsNumber by the clickIncrement: 1', () => {
+      wrapper.setData({ atomsNumber: 0, clickIncrement: 1 })
       expect(wrapper.vm.atomsNumber).toEqual(0)
       wrapper.vm.atomClick()
       expect(wrapper.vm.atomsNumber).toEqual(1)
+    })
+    it('increases atomsNumber by the clickIncrement: 2', () => {
+      wrapper.setData({ atomsNumber: 0, clickIncrement: 2 })
+      expect(wrapper.vm.atomsNumber).toEqual(0)
+      wrapper.vm.atomClick()
+      expect(wrapper.vm.atomsNumber).toEqual(2)
+    })
+    it('increases atomsNumber by the clickIncrement x globalMultiplier: 4', () => {
+      wrapper.setData({ atomsNumber: 0, clickIncrement: 2, globalMultiplier: 2 })
+      expect(wrapper.vm.atomsNumber).toEqual(0)
+      wrapper.vm.atomClick()
+      expect(wrapper.vm.atomsNumber).toEqual(4)
     })
     it('calls getTenthClick() if activated', () => {
       wrapper.setData({ tenthClickActivated: true, tenthClick: 0 })
@@ -38,11 +50,23 @@ describe('Atoms.vue', () => {
   })
 
   describe('atomKeyStroke', () => {
-    it('increases atomsNumber by half the incrementValue: 1', () => {
-      wrapper.setData({ atomsNumber: 0, incrementValue: 1 })
+    it('increases atomsNumber by half the keyStrokeIncrement: 0.5', () => {
+      wrapper.setData({ atomsNumber: 0, keyStrokeIncrement: 0.5 })
       expect(wrapper.vm.atomsNumber).toEqual(0)
       wrapper.vm.atomKeyStroke()
       expect(wrapper.vm.atomsNumber).toEqual(0.5)
+    })
+    it('increases atomsNumber by half the keyStrokeIncrement: 2', () => {
+      wrapper.setData({ atomsNumber: 0, keyStrokeIncrement: 2 })
+      expect(wrapper.vm.atomsNumber).toEqual(0)
+      wrapper.vm.atomKeyStroke()
+      expect(wrapper.vm.atomsNumber).toEqual(2)
+    })
+    it('increases atomsNumber by half the keyStrokeIncrement x globalMultiplier: 1', () => {
+      wrapper.setData({ atomsNumber: 0, keyStrokeIncrement: 0.5, globalMultiplier: 2 })
+      expect(wrapper.vm.atomsNumber).toEqual(0)
+      wrapper.vm.atomKeyStroke()
+      expect(wrapper.vm.atomsNumber).toEqual(1)
     })
     it('calls getTenthKeyStroke() if activated', () => {
       wrapper.setData({ tenthKeyStrokeActivated: true, tenthKeyStroke: 0 })
@@ -59,20 +83,20 @@ describe('Atoms.vue', () => {
   })
 
   describe('atomBuying', () => {
-    it('increases atomsNumber by the incrementValue: 1', () => {
-      wrapper.setData({ atomsNumber: 0, incrementValue: 1 })
+    it('increases atomsNumber by the globalMultiplier: 1', () => {
+      wrapper.setData({ atomsNumber: 0, globalMultiplier: 1 })
       expect(wrapper.vm.atomsNumber).toEqual(0)
       wrapper.vm.atomBuying()
       expect(wrapper.vm.atomsNumber).toEqual(1)
     })
-    it('increases atomsNumber by the incrementValue: 2', () => {
-      wrapper.setData({ atomsNumber: 0, incrementValue: 2 })
+    it('increases atomsNumber by the globalMultiplier: 2', () => {
+      wrapper.setData({ atomsNumber: 0, globalMultiplier: 2 })
       expect(wrapper.vm.atomsNumber).toEqual(0)
       wrapper.vm.atomBuying()
       expect(wrapper.vm.atomsNumber).toEqual(2)
     })
-    it('increases atomsNumber by half the incrementValue: 1', () => {
-      wrapper.setData({ atomsNumber: 0, incrementValue: 1 })
+    it('increases atomsNumber by half the globalMultiplier: 1', () => {
+      wrapper.setData({ atomsNumber: 0, globalMultiplier: 1 })
       expect(wrapper.vm.atomsNumber).toEqual(0)
       wrapper.vm.atomBuying(0.5)
       expect(wrapper.vm.atomsNumber).toEqual(0.5)
@@ -149,14 +173,26 @@ describe('Atoms.vue', () => {
 
   // Tick Actions
   describe('tickActions', () => {
-    it('increase from incrementValue', () => {
-      wrapper.setData({ incrementValue: 1, tickActivated: true, atomsNumber: 1 })
+    it('increases from tickIncrement: 1', () => {
+      wrapper.setData({ tickIncrement: 1, tickActivated: true, atomsNumber: 1 })
       expect(wrapper.vm.atomsNumber).toEqual(1)
       wrapper.vm.tickActions()
       expect(wrapper.vm.atomsNumber).toEqual(2)
     })
-    it('incrementValue increase to 64 from 32', () => {
-      wrapper.setData({ incrementValue: 10, tickActivated: false, atomsNumber: 1 })
+    it('increases from tickIncrement: 2', () => {
+      wrapper.setData({ tickIncrement: 2, tickActivated: true, atomsNumber: 1 })
+      expect(wrapper.vm.atomsNumber).toEqual(1)
+      wrapper.vm.tickActions()
+      expect(wrapper.vm.atomsNumber).toEqual(3)
+    })
+    it('increases from tickIncrement x globalMultiplier: 4', () => {
+      wrapper.setData({ tickIncrement: 2, globalMultiplier: 2, tickActivated: true, atomsNumber: 1 })
+      expect(wrapper.vm.atomsNumber).toEqual(1)
+      wrapper.vm.tickActions()
+      expect(wrapper.vm.atomsNumber).toEqual(5)
+    })
+    it('doesn’t increase', () => {
+      wrapper.setData({ tickIncrement: 10, tickActivated: false, atomsNumber: 1 })
       expect(wrapper.vm.atomsNumber).toEqual(1)
       wrapper.vm.tickActions()
       expect(wrapper.vm.atomsNumber).toEqual(1)
@@ -176,7 +212,7 @@ describe('Atoms.vue', () => {
         upgrades: [
           {
             text: 'Add Increment 1',
-            action: 'doubleIncrement',
+            action: 'doubleGlobal',
             proteinsNeeded: 1
           },
           {
@@ -193,25 +229,25 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.upgradesBought).toEqual([
         {
           text: 'Add Increment 1',
-          action: 'doubleIncrement',
+          action: 'doubleGlobal',
           proteinsNeeded: 1
         }
       ])
     })
   })
 
-  describe('upgrade_doubleIncrement', () => {
-    it('incrementValue increase to 2 from 1', () => {
-      wrapper.setData({ incrementValue: 1 })
-      expect(wrapper.vm.incrementValue).toEqual(1)
-      wrapper.vm.upgrade_doubleIncrement()
-      expect(wrapper.vm.incrementValue).toEqual(2)
+  describe('upgrade_doubleGlobal', () => {
+    it('globalMultiplier increase to 2 from 1', () => {
+      wrapper.setData({ globalMultiplier: 1 })
+      expect(wrapper.vm.globalMultiplier).toEqual(1)
+      wrapper.vm.upgrade_doubleGlobal()
+      expect(wrapper.vm.globalMultiplier).toEqual(2)
     })
-    it('incrementValue increase to 64 from 32', () => {
-      wrapper.setData({ incrementValue: 32 })
-      expect(wrapper.vm.incrementValue).toEqual(32)
-      wrapper.vm.upgrade_doubleIncrement()
-      expect(wrapper.vm.incrementValue).toEqual(64)
+    it('globalMultiplier increase to 64 from 32', () => {
+      wrapper.setData({ globalMultiplier: 32 })
+      expect(wrapper.vm.globalMultiplier).toEqual(32)
+      wrapper.vm.upgrade_doubleGlobal()
+      expect(wrapper.vm.globalMultiplier).toEqual(64)
     })
   })
   describe('upgrade_unlockKeyStroke', () => {
@@ -351,7 +387,7 @@ describe('Atoms.vue', () => {
 
   // DEBUG
   describe('resetAtoms', () => {
-    it('reste atoms to 0', () => {
+    it('reset atoms to 0', () => {
       wrapper.setData({ atomsNumber: 100 })
       expect(wrapper.vm.atomsNumber).toEqual(100)
       wrapper.vm.resetAtoms()

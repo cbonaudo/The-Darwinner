@@ -76,6 +76,8 @@ exports[`Global.vue should render correct contents 1`] = `
              
             <!---->
              
+            <!---->
+             
             <div>
               <button
                 type="button"
@@ -112,7 +114,7 @@ exports[`Global.vue should render correct contents 1`] = `
                 <button
                   disabled="disabled"
                 >
-                  Double atoms per click 0%
+                  Double all sources 0%
                 </button>
               </div>
               <div>
