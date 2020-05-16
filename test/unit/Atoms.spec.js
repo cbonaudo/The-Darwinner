@@ -250,12 +250,40 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.globalMultiplier).toEqual(64)
     })
   })
+  describe('upgrade_increaseKeyStroke', () => {
+    it('increase keyStrokeIncrement to 2 from 1', () => {
+      wrapper.setData({ keyStrokeIncrement: 1 })
+      expect(wrapper.vm.keyStrokeIncrement).toEqual(1)
+      wrapper.vm.upgrade_increaseKeyStroke()
+      expect(wrapper.vm.keyStrokeIncrement).toEqual(2)
+    })
+    it('increase keyStrokeIncrement to 1 from 0.5', () => {
+      wrapper.setData({ keyStrokeIncrement: 0.5 })
+      expect(wrapper.vm.keyStrokeIncrement).toEqual(0.5)
+      wrapper.vm.upgrade_increaseKeyStroke()
+      expect(wrapper.vm.keyStrokeIncrement).toEqual(1)
+    })
+  })
   describe('upgrade_unlockKeyStroke', () => {
     it('keyStrokeUnlocked to true', () => {
       wrapper.setData({ keyStrokeUnlocked: false })
       expect(wrapper.vm.keyStrokeUnlocked).toEqual(false)
       wrapper.vm.upgrade_unlockKeyStroke()
       expect(wrapper.vm.keyStrokeUnlocked).toEqual(true)
+    })
+  })
+  describe('upgrade_increaseClick', () => {
+    it('increase clickIncrement to 2 from 1', () => {
+      wrapper.setData({ clickIncrement: 1 })
+      expect(wrapper.vm.clickIncrement).toEqual(1)
+      wrapper.vm.upgrade_increaseClick()
+      expect(wrapper.vm.clickIncrement).toEqual(2)
+    })
+    it('increase clickIncrement to 1 from 0.5', () => {
+      wrapper.setData({ clickIncrement: 0.5 })
+      expect(wrapper.vm.clickIncrement).toEqual(0.5)
+      wrapper.vm.upgrade_increaseClick()
+      expect(wrapper.vm.clickIncrement).toEqual(1)
     })
   })
   describe('upgrade_activateTenthClick', () => {
@@ -340,6 +368,20 @@ describe('Atoms.vue', () => {
       expect(wrapper.vm.tenthTickIncrement).toEqual(0.5)
       wrapper.vm.upgrade_increaseTenthTick()
       expect(wrapper.vm.tenthTickIncrement).toEqual(1)
+    })
+  })
+  describe('upgrade_increaseTick', () => {
+    it('increase tickIncrement to 2 from 1', () => {
+      wrapper.setData({ tickIncrement: 1 })
+      expect(wrapper.vm.tickIncrement).toEqual(1)
+      wrapper.vm.upgrade_increaseTick()
+      expect(wrapper.vm.tickIncrement).toEqual(2)
+    })
+    it('increase tickIncrement to 1 from 0.5', () => {
+      wrapper.setData({ tickIncrement: 0.5 })
+      expect(wrapper.vm.tickIncrement).toEqual(0.5)
+      wrapper.vm.upgrade_increaseTick()
+      expect(wrapper.vm.tickIncrement).toEqual(1)
     })
   })
   describe('upgrade_activateTick', () => {

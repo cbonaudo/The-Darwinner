@@ -167,9 +167,9 @@ export default {
     upgrade_doubleGlobal() {
       this.globalMultiplier *= 2
     },
-    upgrade_unlockKeyStroke() {
-      this.keyStrokeUnlocked = true
-      this.$emit('unlockKeystroke')
+
+    upgrade_increaseClick() {
+      this.clickIncrement *= 2
     },
     upgrade_activateTenthClick() {
       this.tenthClickActivated = true
@@ -177,20 +177,32 @@ export default {
     upgrade_increaseTenthClick() {
       this.tenthClickIncrement *= 2
     },
+
+    upgrade_unlockKeyStroke() {
+      this.keyStrokeUnlocked = true
+      this.$emit('unlockKeystroke')
+    },
+    upgrade_increaseKeyStroke() {
+      this.keyStrokeIncrement *= 2
+    },
     upgrade_activateTenthKeyStroke() {
       this.tenthKeyStrokeActivated = true
     },
     upgrade_increaseTenthKeyStroke() {
       this.tenthKeyStrokeIncrement *= 2
     },
+
+    upgrade_activateTick() {
+      this.tickActivated = true
+    },
+    upgrade_increaseTick() {
+      this.tickIncrement *= 2
+    },
     upgrade_activateTenthTick() {
       this.tenthTickActivated = true
     },
     upgrade_increaseTenthTick() {
       this.tenthTickIncrement *= 2
-    },
-    upgrade_activateTick() {
-      this.tickActivated = true
     },
     isUnlocked(upgrade) {
       return this.proteinsNumber >= upgrade.proteinsNeeded

@@ -65,6 +65,21 @@ Object {
       "proteinsNeeded": 45,
       "text": "Double tenth keystroke value",
     },
+    Object {
+      "action": "increaseClick",
+      "proteinsNeeded": 55,
+      "text": "Double click value",
+    },
+    Object {
+      "action": "increaseTick",
+      "proteinsNeeded": 66,
+      "text": "Double tick value",
+    },
+    Object {
+      "action": "increaseKeyStroke",
+      "proteinsNeeded": 78,
+      "text": "Double keystroke value",
+    },
   ],
   "upgradesBought": Array [],
 }

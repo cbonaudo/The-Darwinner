@@ -43,5 +43,20 @@ export const upgrades = [
     text: 'Double tenth keystroke value',
     action: 'increaseTenthKeyStroke',
     proteinsNeeded: 45
+  },
+  {
+    text: 'Double click value',
+    action: 'increaseClick',
+    proteinsNeeded: 55
+  },
+  {
+    text: 'Double tick value',
+    action: 'increaseTick',
+    proteinsNeeded: 66
+  },
+  {
+    text: 'Double keystroke value',
+    action: 'increaseKeyStroke',
+    proteinsNeeded: 78
   }
 ]
