@@ -2,60 +2,60 @@
   <div>
     <div class="flex-row space-between">
       <div class="upgrades-bought">
-        <div v-for="(upgradeBought, i) in upgradesBought" :key="i">{{ upgradeBought.text }}</div>
+        <div v-for="(upgradeBought, i) in $atomStore.upgradesBought" :key="i">{{ upgradeBought.text }}</div>
       </div>
       <div class="atom-container">
         <h2>
-          <span v-if="proteinsNumber">
-            {{ proteinsNumber > 9999 ? proteinsNumber.toExponential() : proteinsNumber }}
-            {{ atomsNumber === 1 ? 'Protein' : 'Proteins' }}
+          <span v-if="$atomStore.proteinsNumber">
+            {{ $atomStore.proteinsNumber > 9999 ? $atomStore.proteinsNumber.toExponential() : $atomStore.proteinsNumber }}
+            {{ $atomStore.proteinsNumber === 1 ? 'Protein' : 'Proteins' }}
           </span>
         </h2>
         <h2>
-          <span>{{ Math.floor(atomsNumber) }} {{ atomsNumber === 1 ? 'Atom' : 'Atoms' }}</span>
+          <span>{{ Math.floor($atomStore.atomsNumber) }} {{ $atomStore.atomsNumber >= 2 ? 'Atoms' : 'Atom' }}</span>
         </h2>
 
-        <div v-if="tenthClickActivated">
+        <div v-if="$atomStore.tenthClickActivated">
           Tenth Click :
-          <span v-for="(tenth, i) in new Array(tenthClick)" :key="i + 'tenthC'">o</span>
-          <span v-for="(empty, i) in new Array(10 - tenthClick)" :key="i + 'emptyC'">-</span>
+          <span v-for="(tenth, i) in new Array($atomStore.tenthClick)" :key="i + 'tenthC'">o</span>
+          <span v-for="(empty, i) in new Array(10 - $atomStore.tenthClick)" :key="i + 'emptyC'">-</span>
         </div>
-        <div v-if="tenthKeyStrokeActivated">
+        <div v-if="$atomStore.tenthKeyStrokeActivated">
           Tenth Key Stroke :
           <span
-            v-for="(tenth, i) in new Array(tenthKeyStroke)"
+            v-for="(tenth, i) in new Array($atomStore.tenthKeyStroke)"
             :key="i + 'tenthKS'"
           >o</span>
-          <span v-for="(empty, i) in new Array(10 - tenthKeyStroke)" :key="i + 'emptyKS'">-</span>
+          <span v-for="(empty, i) in new Array(10 - $atomStore.tenthKeyStroke)" :key="i + 'emptyKS'">-</span>
         </div>
-        <div v-if="tenthTickActivated">
+        <div v-if="$atomStore.tenthTickActivated">
           Tenth Tick :
-          <span v-for="(tenth, i) in new Array(tenthTick)" :key="i + 'tenthT'">o</span>
-          <span v-for="(empty, i) in new Array(10 - tenthTick)" :key="i + 'emptyT'">-</span>
+          <span v-for="(tenth, i) in new Array($atomStore.tenthTick)" :key="i + 'tenthT'">o</span>
+          <span v-for="(empty, i) in new Array(10 - $atomStore.tenthTick)" :key="i + 'emptyT'">-</span>
         </div>
 
-        <div>{{ clickIncrement !== 1 ? 'Atoms' : 'Atom' }} per Click : {{ clickIncrement }}</div>
+        <div>{{ $atomStore.clickIncrement * $atomStore.globalMultiplier >= 2 ? 'Atoms' : 'Atom' }} per Click : {{ $atomStore.clickIncrement * $atomStore.globalMultiplier }}</div>
         <div
-          v-if="tickActivated"
-        >{{ tickIncrement > 2 ? 'Atoms' : 'Atom' }} per Second : {{ tickIncrement }}</div>
+          v-if="$atomStore.tickActivated"
+        >{{ $atomStore.tickIncrement * $atomStore.globalMultiplier >= 2 ? 'Atoms' : 'Atom' }} per Second : {{ $atomStore.tickIncrement * $atomStore.globalMultiplier }}</div>
         <div
-          v-if="keyStrokeUnlocked"
-        >{{ keyStrokeIncrement !== 1 ? 'Atoms' : 'Atom' }} per Second : {{ keyStrokeIncrement }}</div>
+          v-if="$atomStore.keyStrokeUnlocked"
+        >{{ $atomStore.keyStrokeIncrement * $atomStore.globalMultiplier >= 2 ? 'Atoms' : 'Atom' }} per Keystroke : {{ $atomStore.keyStrokeIncrement * $atomStore.globalMultiplier }}</div>
 
         <div>
           <button type="button" @mousedown="atomClick">
             Add 1
-            <span :class="keyStrokeUnlocked ? 'underlined' : ''">A</span>tom
+            <span :class="$atomStore.keyStrokeUnlocked ? 'underlined' : ''">A</span>tom
           </button>
         </div>
 
         <div>
           <div v-for="(empty, i) in new Array(5)" :key="i">
             <button
-              v-if="upgrades[i]"
-              @click="isUnlocked(upgrades[i]) && useUpgrade(i)"
-              :disabled="isUnlocked(upgrades[i]) ? false : true"
-            >{{ upgrades[i].text }} {{ getPercentForUpgrade(i) }}</button>
+              v-if="$atomStore.upgrades[i]"
+              @click="useUpgrade(i)"
+              :disabled="!isUnlocked($atomStore.upgrades[i])"
+            >{{ $atomStore.upgrades[i].text }} {{ getPercentForUpgrade(i) }}</button>
           </div>
         </div>
       </div>
@@ -64,41 +64,12 @@
 </template>
 
 <script>
-import { upgrades } from '@/data/upgradesAtoms'
 import { atomCeiling } from '@/data/constants'
 
 export default {
   name: 'Atoms',
-  data() {
-    return {
-      // Resources
-      atomsNumber: 0,
-      proteinsNumber: 0,
-      // Resources Multiplier
-      globalMultiplier: 1,
-      clickIncrement: 1,
-      tickIncrement: 1,
-      keyStrokeIncrement: 0.5,
-      // Tenths
-      tenthClick: 0,
-      tenthClickActivated: false,
-      tenthClickIncrement: 1,
-      tenthKeyStroke: 0,
-      tenthKeyStrokeActivated: false,
-      tenthKeyStrokeIncrement: 0.5,
-      tenthTick: 0,
-      tenthTickActivated: false,
-      tenthTickIncrement: 1,
-      // Tick Resources
-      tickActivated: false,
-      // Upgrades
-      upgrades,
-      upgradesBought: [],
-      keyStrokeUnlocked: false
-    }
-  },
   watch: {
-    atomsNumber: {
+    '$atomStore.atomsNumber': {
       handler() {
         this.getProteins()
       }
@@ -108,115 +79,115 @@ export default {
     // Atoms Actions
     atomClick() {
       this.$emit('clicked')
-      this.tenthClickActivated && this.getTenthClick()
-      this.atomBuying(this.clickIncrement)
+      this.$atomStore.tenthClickActivated && this.getTenthClick()
+      this.atomBuying(this.$atomStore.clickIncrement)
     },
     atomKeyStroke() {
-      this.tenthKeyStrokeActivated && this.getTenthKeyStroke()
-      this.atomBuying(this.keyStrokeIncrement)
+      this.$atomStore.tenthKeyStrokeActivated && this.getTenthKeyStroke()
+      this.atomBuying(this.$atomStore.keyStrokeIncrement)
     },
     atomBuying(modifier = 1) {
-      this.atomsNumber += this.globalMultiplier * modifier
+      this.$atomStore.atomsNumber += this.$atomStore.globalMultiplier * modifier
     },
     getTenthClick() {
-      if (this.tenthClick >= 9) {
-        this.tenthClick = 0
-        this.atomBuying(this.tenthClickIncrement)
+      if (this.$atomStore.tenthClick >= 9) {
+        this.$atomStore.tenthClick = 0
+        this.atomBuying(this.$atomStore.tenthClickIncrement)
       } else {
-        this.tenthClick++
+        this.$atomStore.tenthClick++
       }
     },
     getTenthKeyStroke() {
-      if (this.tenthKeyStroke >= 9) {
-        this.tenthKeyStroke = 0
-        this.atomBuying(this.tenthKeyStrokeIncrement)
+      if (this.$atomStore.tenthKeyStroke >= 9) {
+        this.$atomStore.tenthKeyStroke = 0
+        this.atomBuying(this.$atomStore.tenthKeyStrokeIncrement)
       } else {
-        this.tenthKeyStroke++
+        this.$atomStore.tenthKeyStroke++
       }
     },
     getTenthTick() {
-      if (this.tenthTick >= 9) {
-        this.tenthTick = 0
-        this.atomBuying(this.tenthTickIncrement)
+      if (this.$atomStore.tenthTick >= 9) {
+        this.$atomStore.tenthTick = 0
+        this.atomBuying(this.$atomStore.tenthTickIncrement)
       } else {
-        this.tenthTick++
+        this.$atomStore.tenthTick++
       }
     },
     // Proteins Actions
     getProteins() {
-      if (this.atomsNumber >= atomCeiling) {
-        this.proteinsNumber += Math.floor(this.atomsNumber / atomCeiling)
-        this.atomsNumber %= atomCeiling
+      if (this.$atomStore.atomsNumber >= atomCeiling) {
+        this.$atomStore.proteinsNumber += Math.floor(this.$atomStore.atomsNumber / atomCeiling)
+        this.$atomStore.atomsNumber %= atomCeiling
       }
     },
     // Tick Actions
     tickActions() {
-      if (!this.tickActivated) {
+      if (!this.$atomStore.tickActivated) {
         return
       }
-      this.atomBuying(this.tickIncrement)
-      this.tenthTickActivated && this.getTenthTick()
+      this.atomBuying(this.$atomStore.tickIncrement)
+      this.$atomStore.tenthTickActivated && this.getTenthTick()
     },
     // Upgrades
     useUpgrade(i) {
-      this['upgrade_' + this.upgrades[i].action]()
-      this.proteinsNumber -= this.upgrades[i].proteinsNeeded
-      this.upgradesBought.push(this.upgrades[i])
-      this.upgrades.splice(i, 1)
+      this['upgrade_' + this.$atomStore.upgrades[i].action]()
+      this.$atomStore.proteinsNumber -= this.$atomStore.upgrades[i].proteinsNeeded
+      this.$atomStore.upgradesBought.push(this.$atomStore.upgrades[i])
+      this.$atomStore.upgrades.splice(i, 1)
     },
     upgrade_doubleGlobal() {
-      this.globalMultiplier *= 2
+      this.$atomStore.globalMultiplier *= 2
     },
 
     upgrade_increaseClick() {
-      this.clickIncrement *= 2
+      this.$atomStore.clickIncrement *= 2
     },
     upgrade_activateTenthClick() {
-      this.tenthClickActivated = true
+      this.$atomStore.tenthClickActivated = true
     },
     upgrade_increaseTenthClick() {
-      this.tenthClickIncrement *= 2
+      this.$atomStore.tenthClickIncrement *= 2
     },
 
     upgrade_unlockKeyStroke() {
-      this.keyStrokeUnlocked = true
+      this.$atomStore.keyStrokeUnlocked = true
       this.$emit('unlockKeystroke')
     },
     upgrade_increaseKeyStroke() {
-      this.keyStrokeIncrement *= 2
+      this.$atomStore.keyStrokeIncrement *= 2
     },
     upgrade_activateTenthKeyStroke() {
-      this.tenthKeyStrokeActivated = true
+      this.$atomStore.tenthKeyStrokeActivated = true
     },
     upgrade_increaseTenthKeyStroke() {
-      this.tenthKeyStrokeIncrement *= 2
+      this.$atomStore.tenthKeyStrokeIncrement *= 2
     },
 
     upgrade_activateTick() {
-      this.tickActivated = true
+      this.$atomStore.tickActivated = true
     },
     upgrade_increaseTick() {
-      this.tickIncrement *= 2
+      this.$atomStore.tickIncrement *= 2
     },
     upgrade_activateTenthTick() {
-      this.tenthTickActivated = true
+      this.$atomStore.tenthTickActivated = true
     },
     upgrade_increaseTenthTick() {
-      this.tenthTickIncrement *= 2
+      this.$atomStore.tenthTickIncrement *= 2
     },
     isUnlocked(upgrade) {
-      return this.proteinsNumber >= upgrade.proteinsNeeded
+      return this.$atomStore.proteinsNumber >= upgrade.proteinsNeeded
     },
     getPercentForUpgrade(index) {
-      const upgrade = this.upgrades[index]
+      const upgrade = this.$atomStore.upgrades[index]
       const atomsNeeded = upgrade.proteinsNeeded * atomCeiling
-      const atomsHoarded = this.proteinsNumber * atomCeiling + this.atomsNumber
+      const atomsHoarded = this.$atomStore.proteinsNumber * atomCeiling + this.$atomStore.atomsNumber
       const percent = (atomsHoarded / atomsNeeded) * 100
       return percent < 100 ? `${Math.floor(percent)}%` : ''
     },
     // Debug
     resetAtoms() {
-      this.atomsNumber = 0
+      this.$atomStore.atomsNumber = 0
     }
   },
   created() {

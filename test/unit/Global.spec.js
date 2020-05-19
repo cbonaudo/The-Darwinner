@@ -1,8 +1,14 @@
 import Global from '@/Global'
 import { mount } from '@vue/test-utils'
+import atomStore from '@/store/atomStore'
 
 describe('Global.vue', () => {
-  const wrapper = mount(Global, { attachToDocument: true })
+  const wrapper = mount(Global, {
+    attachToDocument: true,
+    mocks: {
+      $atomStore: atomStore
+    }
+  })
 
   it('should render correct contents', () => {
     expect(wrapper.element).toMatchSnapshot()

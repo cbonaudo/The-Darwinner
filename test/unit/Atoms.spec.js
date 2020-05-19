@@ -1,232 +1,309 @@
 import Atoms from '@/components/Atoms'
 import { mount } from '@vue/test-utils'
+import atomStore from '@/store/atomStore'
 
 describe('Atoms.vue', () => {
   jest.useFakeTimers()
   let wrapper
 
   beforeEach(() => {
-    wrapper = mount(Atoms)
+    wrapper = mount(Atoms, {
+      mocks: {
+        $atomStore: atomStore
+      }
+    })
   })
 
   it('should render correct contents', () => {
     expect(wrapper.element).toMatchSnapshot()
   })
   it('should have correct starting data', () => {
-    expect(Atoms.data()).toMatchSnapshot()
+    expect(atomStore).toMatchSnapshot()
+  })
+
+  // HOOKS
+  describe('created', () => {
+    it('trigger tickActions every second', async () => {
+      atomStore.tickActivated = true
+      atomStore.globalMultiplier = 1
+      atomStore.tickIncrement = 1
+      atomStore.atomsNumber = 0
+      atomStore.tenthClickActivated = false
+      await expect(atomStore.atomsNumber).toEqual(0)
+      jest.runTimersToTime(1500)
+
+      await expect(atomStore.atomsNumber).toEqual(3)
+    })
   })
 
   describe('atomClick', () => {
     it('increases atomsNumber by the clickIncrement: 1', () => {
-      wrapper.setData({ atomsNumber: 0, clickIncrement: 1 })
-      expect(wrapper.vm.atomsNumber).toEqual(0)
+      atomStore.atomsNumber = 0
+      atomStore.clickIncrement = 1
+      expect(atomStore.atomsNumber).toEqual(0)
       wrapper.vm.atomClick()
-      expect(wrapper.vm.atomsNumber).toEqual(1)
+
+      expect(atomStore.atomsNumber).toEqual(1)
     })
     it('increases atomsNumber by the clickIncrement: 2', () => {
-      wrapper.setData({ atomsNumber: 0, clickIncrement: 2 })
-      expect(wrapper.vm.atomsNumber).toEqual(0)
+      atomStore.atomsNumber = 0
+      atomStore.clickIncrement = 2
+      expect(atomStore.atomsNumber).toEqual(0)
       wrapper.vm.atomClick()
-      expect(wrapper.vm.atomsNumber).toEqual(2)
+
+      expect(atomStore.atomsNumber).toEqual(2)
     })
     it('increases atomsNumber by the clickIncrement x globalMultiplier: 4', () => {
-      wrapper.setData({ atomsNumber: 0, clickIncrement: 2, globalMultiplier: 2 })
-      expect(wrapper.vm.atomsNumber).toEqual(0)
+      atomStore.atomsNumber = 0
+      atomStore.clickIncrement = 2
+      atomStore.globalMultiplier = 2
+      expect(atomStore.atomsNumber).toEqual(0)
       wrapper.vm.atomClick()
-      expect(wrapper.vm.atomsNumber).toEqual(4)
+
+      expect(atomStore.atomsNumber).toEqual(4)
     })
     it('calls getTenthClick() if activated', () => {
-      wrapper.setData({ tenthClickActivated: true, tenthClick: 0 })
-      expect(wrapper.vm.tenthClick).toEqual(0)
+      atomStore.tenthClickActivated = true
+      atomStore.tenthClick = 0
+      expect(atomStore.tenthClick).toEqual(0)
       wrapper.vm.atomClick()
-      expect(wrapper.vm.tenthClick).toEqual(1)
+
+      expect(atomStore.tenthClick).toEqual(1)
     })
     it("doesn't call getTenthClick() if activated", () => {
-      wrapper.setData({ tenthClickActivated: false, tenthClick: 0 })
-      expect(wrapper.vm.tenthClick).toEqual(0)
+      atomStore.tenthClickActivated = false
+      atomStore.tenthClick = 0
+      expect(atomStore.tenthClick).toEqual(0)
       wrapper.vm.atomClick()
-      expect(wrapper.vm.tenthClick).toEqual(0)
+
+      expect(atomStore.tenthClick).toEqual(0)
     })
   })
 
   describe('atomKeyStroke', () => {
     it('increases atomsNumber by half the keyStrokeIncrement: 0.5', () => {
-      wrapper.setData({ atomsNumber: 0, keyStrokeIncrement: 0.5 })
-      expect(wrapper.vm.atomsNumber).toEqual(0)
+      atomStore.atomsNumber = 0
+      atomStore.keyStrokeIncrement = 0.5
+      atomStore.globalMultiplier = 1
+      expect(atomStore.atomsNumber).toEqual(0)
       wrapper.vm.atomKeyStroke()
-      expect(wrapper.vm.atomsNumber).toEqual(0.5)
+
+      expect(atomStore.atomsNumber).toEqual(0.5)
     })
-    it('increases atomsNumber by half the keyStrokeIncrement: 2', () => {
-      wrapper.setData({ atomsNumber: 0, keyStrokeIncrement: 2 })
-      expect(wrapper.vm.atomsNumber).toEqual(0)
+    it('increases atomsNumber by half the keyStrokeIncrement x globalMultiplier: 2', () => {
+      atomStore.atomsNumber = 0
+      atomStore.keyStrokeIncrement = 2
+      atomStore.globalMultiplier = 1
+      expect(atomStore.atomsNumber).toEqual(0)
       wrapper.vm.atomKeyStroke()
-      expect(wrapper.vm.atomsNumber).toEqual(2)
+
+      expect(atomStore.atomsNumber).toEqual(2)
     })
     it('increases atomsNumber by half the keyStrokeIncrement x globalMultiplier: 1', () => {
-      wrapper.setData({ atomsNumber: 0, keyStrokeIncrement: 0.5, globalMultiplier: 2 })
-      expect(wrapper.vm.atomsNumber).toEqual(0)
+      atomStore.atomsNumber = 0
+      atomStore.keyStrokeIncrement = 0.5
+      atomStore.globalMultiplier = 2
+      expect(atomStore.atomsNumber).toEqual(0)
       wrapper.vm.atomKeyStroke()
-      expect(wrapper.vm.atomsNumber).toEqual(1)
+
+      expect(atomStore.atomsNumber).toEqual(1)
     })
     it('calls getTenthKeyStroke() if activated', () => {
-      wrapper.setData({ tenthKeyStrokeActivated: true, tenthKeyStroke: 0 })
-      expect(wrapper.vm.tenthKeyStroke).toEqual(0)
+      atomStore.tenthKeyStrokeActivated = true
+      atomStore.tenthKeyStroke = 0
+      expect(atomStore.tenthKeyStroke).toEqual(0)
       wrapper.vm.atomKeyStroke()
-      expect(wrapper.vm.tenthKeyStroke).toEqual(1)
+
+      expect(atomStore.tenthKeyStroke).toEqual(1)
     })
-    it("doesn't call getTenthKeyStroke() if activated", () => {
-      wrapper.setData({ tenthKeyStrokeActivated: false, tenthClick: 0 })
-      expect(wrapper.vm.tenthKeyStroke).toEqual(0)
+    it("doesn't call getTenthKeyStroke() if not activated", () => {
+      atomStore.tenthKeyStrokeActivated = false
+      atomStore.tenthKeyStroke = 0
+      expect(atomStore.tenthKeyStroke).toEqual(0)
       wrapper.vm.atomKeyStroke()
-      expect(wrapper.vm.tenthKeyStroke).toEqual(0)
+
+      expect(atomStore.tenthKeyStroke).toEqual(0)
     })
   })
 
   describe('atomBuying', () => {
     it('increases atomsNumber by the globalMultiplier: 1', () => {
-      wrapper.setData({ atomsNumber: 0, globalMultiplier: 1 })
-      expect(wrapper.vm.atomsNumber).toEqual(0)
+      atomStore.atomsNumber = 0
+      atomStore.globalMultiplier = 1
+      expect(atomStore.atomsNumber).toEqual(0)
       wrapper.vm.atomBuying()
-      expect(wrapper.vm.atomsNumber).toEqual(1)
+
+      expect(atomStore.atomsNumber).toEqual(1)
     })
     it('increases atomsNumber by the globalMultiplier: 2', () => {
-      wrapper.setData({ atomsNumber: 0, globalMultiplier: 2 })
-      expect(wrapper.vm.atomsNumber).toEqual(0)
+      atomStore.atomsNumber = 0
+      atomStore.globalMultiplier = 2
+      expect(atomStore.atomsNumber).toEqual(0)
       wrapper.vm.atomBuying()
-      expect(wrapper.vm.atomsNumber).toEqual(2)
+
+      expect(atomStore.atomsNumber).toEqual(2)
     })
     it('increases atomsNumber by half the globalMultiplier: 1', () => {
-      wrapper.setData({ atomsNumber: 0, globalMultiplier: 1 })
-      expect(wrapper.vm.atomsNumber).toEqual(0)
+      atomStore.atomsNumber = 0
+      atomStore.globalMultiplier = 1
+      expect(atomStore.atomsNumber).toEqual(0)
       wrapper.vm.atomBuying(0.5)
-      expect(wrapper.vm.atomsNumber).toEqual(0.5)
+
+      expect(atomStore.atomsNumber).toEqual(0.5)
     })
   })
 
   describe('getTenthClick', () => {
     it('increases the tenthClick by 1', () => {
-      wrapper.setData({ tenthClick: 0 })
-      expect(wrapper.vm.tenthClick).toEqual(0)
+      atomStore.tenthClick = 0
+      expect(atomStore.tenthClick).toEqual(0)
       wrapper.vm.getTenthClick()
-      expect(wrapper.vm.tenthClick).toEqual(1)
+
+      expect(atomStore.tenthClick).toEqual(1)
     })
     it('bring the tenthClick to 0', () => {
-      wrapper.setData({ tenthClick: 9 })
-      expect(wrapper.vm.tenthClick).toEqual(9)
+      atomStore.tenthClick = 9
+      expect(atomStore.tenthClick).toEqual(9)
       wrapper.vm.getTenthClick()
-      expect(wrapper.vm.tenthClick).toEqual(0)
+
+      expect(atomStore.tenthClick).toEqual(0)
     })
   })
   describe('getTenthKeyStroke', () => {
     it('increases the tenthKeyStroke by 1', () => {
-      wrapper.setData({ tenthKeyStroke: 0 })
-      expect(wrapper.vm.tenthKeyStroke).toEqual(0)
+      atomStore.tenthKeyStroke = 0
+      expect(atomStore.tenthKeyStroke).toEqual(0)
       wrapper.vm.getTenthKeyStroke()
-      expect(wrapper.vm.tenthKeyStroke).toEqual(1)
+
+      expect(atomStore.tenthKeyStroke).toEqual(1)
     })
     it('bring the tenthKeyStroke to 0', () => {
-      wrapper.setData({ tenthKeyStroke: 9 })
-      expect(wrapper.vm.tenthKeyStroke).toEqual(9)
+      atomStore.tenthKeyStroke = 9
+      expect(atomStore.tenthKeyStroke).toEqual(9)
       wrapper.vm.getTenthKeyStroke()
-      expect(wrapper.vm.tenthKeyStroke).toEqual(0)
+
+      expect(atomStore.tenthKeyStroke).toEqual(0)
     })
   })
   describe('getTenthTick', () => {
     it('increases the tenthTick by 1', () => {
-      wrapper.setData({ tenthTick: 0 })
-      expect(wrapper.vm.tenthTick).toEqual(0)
+      atomStore.tenthTick = 0
+      expect(atomStore.tenthTick).toEqual(0)
       wrapper.vm.getTenthTick()
-      expect(wrapper.vm.tenthTick).toEqual(1)
+
+      expect(atomStore.tenthTick).toEqual(1)
     })
     it('bring the tenthTick to 0', () => {
-      wrapper.setData({ tenthTick: 9 })
-      expect(wrapper.vm.tenthTick).toEqual(9)
+      atomStore.tenthTick = 9
+      expect(atomStore.tenthTick).toEqual(9)
       wrapper.vm.getTenthTick()
-      expect(wrapper.vm.tenthTick).toEqual(0)
+
+      expect(atomStore.tenthTick).toEqual(0)
     })
   })
 
   // Proteins
   describe('getProteins', () => {
     it('gives 1 protein when above 210 atoms', () => {
-      wrapper.setData({ atomsNumber: 212, proteinsNumber: 0 })
-      expect(wrapper.vm.proteinsNumber).toEqual(0)
+      atomStore.atomsNumber = 212
+      atomStore.proteinsNumber = 0
+      expect(atomStore.proteinsNumber).toEqual(0)
       wrapper.vm.getProteins()
-      expect(wrapper.vm.proteinsNumber).toEqual(1)
-      expect(wrapper.vm.atomsNumber).toEqual(2)
+
+      expect(atomStore.proteinsNumber).toEqual(1)
+      expect(atomStore.atomsNumber).toEqual(2)
     })
     it('gives 10 protein when above 2100 atoms', () => {
-      wrapper.setData({ atomsNumber: 2101, proteinsNumber: 0 })
-      expect(wrapper.vm.proteinsNumber).toEqual(0)
+      atomStore.atomsNumber = 2101
+      atomStore.proteinsNumber = 0
+      expect(atomStore.proteinsNumber).toEqual(0)
       wrapper.vm.getProteins()
-      expect(wrapper.vm.proteinsNumber).toEqual(10)
-      expect(wrapper.vm.atomsNumber).toEqual(1)
+
+      expect(atomStore.proteinsNumber).toEqual(10)
+      expect(atomStore.atomsNumber).toEqual(1)
     })
     it('gives 0 protein when below 210 atoms', () => {
-      wrapper.setData({ atomsNumber: 199, proteinsNumber: 0 })
-      expect(wrapper.vm.proteinsNumber).toEqual(0)
+      atomStore.atomsNumber = 199
+      atomStore.proteinsNumber = 0
+      expect(atomStore.proteinsNumber).toEqual(0)
       wrapper.vm.getProteins()
-      expect(wrapper.vm.proteinsNumber).toEqual(0)
-      expect(wrapper.vm.atomsNumber).toEqual(199)
+
+      expect(atomStore.proteinsNumber).toEqual(0)
+      expect(atomStore.atomsNumber).toEqual(199)
     })
   })
 
   // Tick Actions
   describe('tickActions', () => {
     it('increases from tickIncrement: 1', () => {
-      wrapper.setData({ tickIncrement: 1, tickActivated: true, atomsNumber: 1 })
-      expect(wrapper.vm.atomsNumber).toEqual(1)
+      atomStore.tickIncrement = 1
+      atomStore.tickActivated = true
+      atomStore.atomsNumber = 1
+      expect(atomStore.atomsNumber).toEqual(1)
       wrapper.vm.tickActions()
-      expect(wrapper.vm.atomsNumber).toEqual(2)
+
+      expect(atomStore.atomsNumber).toEqual(2)
     })
     it('increases from tickIncrement: 2', () => {
-      wrapper.setData({ tickIncrement: 2, tickActivated: true, atomsNumber: 1 })
-      expect(wrapper.vm.atomsNumber).toEqual(1)
+      atomStore.tickIncrement = 2
+      atomStore.tickActivated = true
+      atomStore.atomsNumber = 1
+      expect(atomStore.atomsNumber).toEqual(1)
       wrapper.vm.tickActions()
-      expect(wrapper.vm.atomsNumber).toEqual(3)
+
+      expect(atomStore.atomsNumber).toEqual(3)
     })
     it('increases from tickIncrement x globalMultiplier: 4', () => {
-      wrapper.setData({ tickIncrement: 2, globalMultiplier: 2, tickActivated: true, atomsNumber: 1 })
-      expect(wrapper.vm.atomsNumber).toEqual(1)
+      atomStore.tickIncrement = 2
+      atomStore.globalMultiplier = 2
+      atomStore.tickActivated = true
+      atomStore.atomsNumber = 1
+      expect(atomStore.atomsNumber).toEqual(1)
       wrapper.vm.tickActions()
-      expect(wrapper.vm.atomsNumber).toEqual(5)
+
+      expect(atomStore.atomsNumber).toEqual(5)
     })
     it('doesn’t increase', () => {
-      wrapper.setData({ tickIncrement: 10, tickActivated: false, atomsNumber: 1 })
-      expect(wrapper.vm.atomsNumber).toEqual(1)
+      atomStore.tickIncrement = 10
+      atomStore.tickActivated = false
+      atomStore.atomsNumber = 1
+      expect(atomStore.atomsNumber).toEqual(1)
       wrapper.vm.tickActions()
-      expect(wrapper.vm.atomsNumber).toEqual(1)
+
+      expect(atomStore.atomsNumber).toEqual(1)
     })
     it('getTenthTick', () => {
-      wrapper.setData({ tickActivated: true, tenthTickActivated: true, tenthTick: 0 })
-      expect(wrapper.vm.tenthTick).toEqual(0)
+      atomStore.tickActivated = true
+      atomStore.tenthTickActivated = true
+      atomStore.tenthTick = 0
+      expect(atomStore.tenthTick).toEqual(0)
       wrapper.vm.tickActions()
-      expect(wrapper.vm.tenthTick).toEqual(1)
+
+      expect(atomStore.tenthTick).toEqual(1)
     })
   })
 
   // Upgrades
   describe('useUpgrade', () => {
     it('splice the upgrades array', () => {
-      wrapper.setData({
-        upgrades: [
-          {
-            text: 'Add Increment 1',
-            action: 'doubleGlobal',
-            proteinsNeeded: 1
-          },
-          {
-            text: 'Add Increment 2',
-            action: 'unlockKeystroke',
-            proteinsNeeded: 1
-          }
-        ]
-      })
-      expect(wrapper.vm.upgradesBought).toEqual([])
-      expect(wrapper.vm.upgrades.length).toEqual(2)
+      atomStore.upgrades = [
+        {
+          text: 'Add Increment 1',
+          action: 'doubleGlobal',
+          proteinsNeeded: 1
+        },
+        {
+          text: 'Add Increment 2',
+          action: 'unlockKeystroke',
+          proteinsNeeded: 1
+        }
+      ]
+      expect(atomStore.upgradesBought).toEqual([])
+      expect(atomStore.upgrades.length).toEqual(2)
       wrapper.vm.useUpgrade(0)
-      expect(wrapper.vm.upgrades.length).toEqual(1)
-      expect(wrapper.vm.upgradesBought).toEqual([
+
+      expect(atomStore.upgrades.length).toEqual(1)
+      expect(atomStore.upgradesBought).toEqual([
         {
           text: 'Add Increment 1',
           action: 'doubleGlobal',
@@ -238,191 +315,223 @@ describe('Atoms.vue', () => {
 
   describe('upgrade_doubleGlobal', () => {
     it('globalMultiplier increase to 2 from 1', () => {
-      wrapper.setData({ globalMultiplier: 1 })
-      expect(wrapper.vm.globalMultiplier).toEqual(1)
+      atomStore.globalMultiplier = 1
+      expect(atomStore.globalMultiplier).toEqual(1)
       wrapper.vm.upgrade_doubleGlobal()
-      expect(wrapper.vm.globalMultiplier).toEqual(2)
+
+      expect(atomStore.globalMultiplier).toEqual(2)
     })
     it('globalMultiplier increase to 64 from 32', () => {
-      wrapper.setData({ globalMultiplier: 32 })
-      expect(wrapper.vm.globalMultiplier).toEqual(32)
+      atomStore.globalMultiplier = 32
+      expect(atomStore.globalMultiplier).toEqual(32)
       wrapper.vm.upgrade_doubleGlobal()
-      expect(wrapper.vm.globalMultiplier).toEqual(64)
+
+      expect(atomStore.globalMultiplier).toEqual(64)
     })
   })
   describe('upgrade_increaseKeyStroke', () => {
     it('increase keyStrokeIncrement to 2 from 1', () => {
-      wrapper.setData({ keyStrokeIncrement: 1 })
-      expect(wrapper.vm.keyStrokeIncrement).toEqual(1)
+      atomStore.keyStrokeIncrement = 1
+      expect(atomStore.keyStrokeIncrement).toEqual(1)
       wrapper.vm.upgrade_increaseKeyStroke()
-      expect(wrapper.vm.keyStrokeIncrement).toEqual(2)
+
+      expect(atomStore.keyStrokeIncrement).toEqual(2)
     })
     it('increase keyStrokeIncrement to 1 from 0.5', () => {
-      wrapper.setData({ keyStrokeIncrement: 0.5 })
-      expect(wrapper.vm.keyStrokeIncrement).toEqual(0.5)
+      atomStore.keyStrokeIncrement = 0.5
+      expect(atomStore.keyStrokeIncrement).toEqual(0.5)
       wrapper.vm.upgrade_increaseKeyStroke()
-      expect(wrapper.vm.keyStrokeIncrement).toEqual(1)
+
+      expect(atomStore.keyStrokeIncrement).toEqual(1)
     })
   })
   describe('upgrade_unlockKeyStroke', () => {
     it('keyStrokeUnlocked to true', () => {
-      wrapper.setData({ keyStrokeUnlocked: false })
-      expect(wrapper.vm.keyStrokeUnlocked).toEqual(false)
+      atomStore.keyStrokeUnlocked = false
+      expect(atomStore.keyStrokeUnlocked).toEqual(false)
       wrapper.vm.upgrade_unlockKeyStroke()
-      expect(wrapper.vm.keyStrokeUnlocked).toEqual(true)
+
+      expect(atomStore.keyStrokeUnlocked).toEqual(true)
     })
   })
   describe('upgrade_increaseClick', () => {
     it('increase clickIncrement to 2 from 1', () => {
-      wrapper.setData({ clickIncrement: 1 })
-      expect(wrapper.vm.clickIncrement).toEqual(1)
+      atomStore.clickIncrement = 1
+      expect(atomStore.clickIncrement).toEqual(1)
       wrapper.vm.upgrade_increaseClick()
-      expect(wrapper.vm.clickIncrement).toEqual(2)
+
+      expect(atomStore.clickIncrement).toEqual(2)
     })
     it('increase clickIncrement to 1 from 0.5', () => {
-      wrapper.setData({ clickIncrement: 0.5 })
-      expect(wrapper.vm.clickIncrement).toEqual(0.5)
+      atomStore.clickIncrement = 0.5
+      expect(atomStore.clickIncrement).toEqual(0.5)
       wrapper.vm.upgrade_increaseClick()
-      expect(wrapper.vm.clickIncrement).toEqual(1)
+
+      expect(atomStore.clickIncrement).toEqual(1)
     })
   })
   describe('upgrade_activateTenthClick', () => {
     it('switch tenthClickActivated to true', () => {
-      wrapper.setData({ tenthClickActivated: false })
-      expect(wrapper.vm.tenthClickActivated).toEqual(false)
+      atomStore.tenthClickActivated = false
+      expect(atomStore.tenthClickActivated).toEqual(false)
       wrapper.vm.upgrade_activateTenthClick()
-      expect(wrapper.vm.tenthClickActivated).toEqual(true)
+
+      expect(atomStore.tenthClickActivated).toEqual(true)
     })
     it('keep tenthClickActivated to true', () => {
-      wrapper.setData({ tenthClickActivated: true })
-      expect(wrapper.vm.tenthClickActivated).toEqual(true)
+      atomStore.tenthClickActivated = true
+      expect(atomStore.tenthClickActivated).toEqual(true)
       wrapper.vm.upgrade_activateTenthClick()
-      expect(wrapper.vm.tenthClickActivated).toEqual(true)
+
+      expect(atomStore.tenthClickActivated).toEqual(true)
     })
   })
   describe('upgrade_increaseTenthClick', () => {
     it('increase tenthClickIncrement to 2 from 1', () => {
-      wrapper.setData({ tenthClickIncrement: 1 })
-      expect(wrapper.vm.tenthClickIncrement).toEqual(1)
+      atomStore.tenthClickIncrement = 1
+      expect(atomStore.tenthClickIncrement).toEqual(1)
       wrapper.vm.upgrade_increaseTenthClick()
-      expect(wrapper.vm.tenthClickIncrement).toEqual(2)
+
+      expect(atomStore.tenthClickIncrement).toEqual(2)
     })
     it('keep tenthClickIncrement to 1 from 0.5', () => {
-      wrapper.setData({ tenthClickIncrement: 0.5 })
-      expect(wrapper.vm.tenthClickIncrement).toEqual(0.5)
+      atomStore.tenthClickIncrement = 0.5
+      expect(atomStore.tenthClickIncrement).toEqual(0.5)
       wrapper.vm.upgrade_increaseTenthClick()
-      expect(wrapper.vm.tenthClickIncrement).toEqual(1)
+
+      expect(atomStore.tenthClickIncrement).toEqual(1)
     })
   })
   describe('upgrade_activateTenthKeyStroke', () => {
     it('switch tenthKeyStrokeActivated to true', () => {
-      wrapper.setData({ tenthKeyStrokeActivated: false })
-      expect(wrapper.vm.tenthKeyStrokeActivated).toEqual(false)
+      atomStore.tenthKeyStrokeActivated = false
+      expect(atomStore.tenthKeyStrokeActivated).toEqual(false)
       wrapper.vm.upgrade_activateTenthKeyStroke()
-      expect(wrapper.vm.tenthKeyStrokeActivated).toEqual(true)
+
+      expect(atomStore.tenthKeyStrokeActivated).toEqual(true)
     })
     it('keep tenthKeyStrokeActivated to true', () => {
-      wrapper.setData({ tenthKeyStrokeActivated: true })
-      expect(wrapper.vm.tenthKeyStrokeActivated).toEqual(true)
+      atomStore.tenthKeyStrokeActivated = true
+      expect(atomStore.tenthKeyStrokeActivated).toEqual(true)
       wrapper.vm.upgrade_activateTenthKeyStroke()
-      expect(wrapper.vm.tenthKeyStrokeActivated).toEqual(true)
+
+      expect(atomStore.tenthKeyStrokeActivated).toEqual(true)
     })
   })
   describe('upgrade_increaseTenthKeyStroke', () => {
     it('increase tenthKeyStrokeIncrement to 2 from 1', () => {
-      wrapper.setData({ tenthKeyStrokeIncrement: 1 })
-      expect(wrapper.vm.tenthKeyStrokeIncrement).toEqual(1)
+      atomStore.tenthKeyStrokeIncrement = 1
+      expect(atomStore.tenthKeyStrokeIncrement).toEqual(1)
       wrapper.vm.upgrade_increaseTenthKeyStroke()
-      expect(wrapper.vm.tenthKeyStrokeIncrement).toEqual(2)
+
+      expect(atomStore.tenthKeyStrokeIncrement).toEqual(2)
     })
     it('keep tenthKeyStrokeIncrement to 1 from 0.5', () => {
-      wrapper.setData({ tenthKeyStrokeIncrement: 0.5 })
-      expect(wrapper.vm.tenthKeyStrokeIncrement).toEqual(0.5)
+      atomStore.tenthKeyStrokeIncrement = 0.5
+      expect(atomStore.tenthKeyStrokeIncrement).toEqual(0.5)
       wrapper.vm.upgrade_increaseTenthKeyStroke()
-      expect(wrapper.vm.tenthKeyStrokeIncrement).toEqual(1)
+
+      expect(atomStore.tenthKeyStrokeIncrement).toEqual(1)
     })
   })
   describe('upgrade_activateTenthTick', () => {
     it('switch tenthTickActivated to true', () => {
-      wrapper.setData({ tenthTickActivated: false })
-      expect(wrapper.vm.tenthTickActivated).toEqual(false)
+      atomStore.tenthTickActivated = false
+      expect(atomStore.tenthTickActivated).toEqual(false)
       wrapper.vm.upgrade_activateTenthTick()
-      expect(wrapper.vm.tenthTickActivated).toEqual(true)
+
+      expect(atomStore.tenthTickActivated).toEqual(true)
     })
     it('keep tenthTickActivated to true', () => {
-      wrapper.setData({ tenthTickActivated: true })
-      expect(wrapper.vm.tenthTickActivated).toEqual(true)
+      atomStore.tenthTickActivated = true
+      expect(atomStore.tenthTickActivated).toEqual(true)
       wrapper.vm.upgrade_activateTenthTick()
-      expect(wrapper.vm.tenthTickActivated).toEqual(true)
+
+      expect(atomStore.tenthTickActivated).toEqual(true)
     })
   })
   describe('upgrade_increaseTenthTick', () => {
     it('increase tenthTickIncrement to 2 from 1', () => {
-      wrapper.setData({ tenthTickIncrement: 1 })
-      expect(wrapper.vm.tenthTickIncrement).toEqual(1)
+      atomStore.tenthTickIncrement = 1
+      expect(atomStore.tenthTickIncrement).toEqual(1)
       wrapper.vm.upgrade_increaseTenthTick()
-      expect(wrapper.vm.tenthTickIncrement).toEqual(2)
+
+      expect(atomStore.tenthTickIncrement).toEqual(2)
     })
     it('keep tenthTickIncrement to 1 from 0.5', () => {
-      wrapper.setData({ tenthTickIncrement: 0.5 })
-      expect(wrapper.vm.tenthTickIncrement).toEqual(0.5)
+      atomStore.tenthTickIncrement = 0.5
+      expect(atomStore.tenthTickIncrement).toEqual(0.5)
       wrapper.vm.upgrade_increaseTenthTick()
-      expect(wrapper.vm.tenthTickIncrement).toEqual(1)
+
+      expect(atomStore.tenthTickIncrement).toEqual(1)
     })
   })
   describe('upgrade_increaseTick', () => {
     it('increase tickIncrement to 2 from 1', () => {
-      wrapper.setData({ tickIncrement: 1 })
-      expect(wrapper.vm.tickIncrement).toEqual(1)
+      atomStore.tickIncrement = 1
+      expect(atomStore.tickIncrement).toEqual(1)
       wrapper.vm.upgrade_increaseTick()
-      expect(wrapper.vm.tickIncrement).toEqual(2)
+
+      expect(atomStore.tickIncrement).toEqual(2)
     })
     it('increase tickIncrement to 1 from 0.5', () => {
-      wrapper.setData({ tickIncrement: 0.5 })
-      expect(wrapper.vm.tickIncrement).toEqual(0.5)
+      atomStore.tickIncrement = 0.5
+      expect(atomStore.tickIncrement).toEqual(0.5)
       wrapper.vm.upgrade_increaseTick()
-      expect(wrapper.vm.tickIncrement).toEqual(1)
+
+      expect(atomStore.tickIncrement).toEqual(1)
     })
   })
   describe('upgrade_activateTick', () => {
     it('switch tickActivated to true', () => {
-      wrapper.setData({ tickActivated: false })
-      expect(wrapper.vm.tickActivated).toEqual(false)
+      atomStore.tickActivated = false
+      expect(atomStore.tickActivated).toEqual(false)
       wrapper.vm.upgrade_activateTick()
-      expect(wrapper.vm.tickActivated).toEqual(true)
+      expect(atomStore.tickActivated).toEqual(true)
     })
     it('keep tickActivated to true', () => {
-      wrapper.setData({ tickActivated: true })
-      expect(wrapper.vm.tickActivated).toEqual(true)
+      atomStore.tickActivated = true
+      expect(atomStore.tickActivated).toEqual(true)
       wrapper.vm.upgrade_activateTick()
-      expect(wrapper.vm.tickActivated).toEqual(true)
+      expect(atomStore.tickActivated).toEqual(true)
     })
   })
 
   describe('isUnlocked', () => {
     it('is not unlocked when 157 needed and 145 obtained', () => {
-      wrapper.setData({ proteinsNumber: 1 })
+      atomStore.proteinsNumber = 1
       const upgrade = { proteinsNeeded: 1 }
+
       expect(wrapper.vm.isUnlocked(upgrade)).toBe(true)
     })
     it('is not unlocked when 157 needed and 145 obtained', () => {
-      wrapper.setData({ proteinsNumber: 145 })
+      atomStore.proteinsNumber = 145
       const upgrade = { proteinsNeeded: 157 }
+
       expect(wrapper.vm.isUnlocked(upgrade)).toBe(false)
     })
   })
 
   describe('getPercentForUpgrade', () => {
-    it('is 11% when 1 protein, a few atoms, and 10 proteins needed', () => {
-      wrapper.setData({ proteinsNumber: 0, atomsNumber: 0, upgrades: [{ proteinsNeeded: 10 }] })
+    it('is 0% when 0 protein, 0 atoms, and 10 proteins needed', () => {
+      atomStore.proteinsNumber = 0
+      atomStore.atomsNumber = 0
+      atomStore.upgrades = [{ proteinsNeeded: 10 }]
+
       expect(wrapper.vm.getPercentForUpgrade(0)).toBe('0%')
     })
     it('is 11% when 1 protein, a few atoms, and 10 proteins needed', () => {
-      wrapper.setData({ proteinsNumber: 1, atomsNumber: 23, upgrades: [{ proteinsNeeded: 10 }] })
+      atomStore.proteinsNumber = 1
+      atomStore.atomsNumber = 23
+      atomStore.upgrades = [{ proteinsNeeded: 10 }]
+
       expect(wrapper.vm.getPercentForUpgrade(0)).toBe('11%')
     })
     it('is empty when above protein level', () => {
-      wrapper.setData({ proteinsNumber: 10, atomsNumber: 23, upgrades: [{ proteinsNeeded: 10 }] })
+      atomStore.proteinsNumber = 10
+      atomStore.atomsNumber = 23
+      atomStore.upgrades = [{ proteinsNeeded: 10 }]
+
       expect(wrapper.vm.getPercentForUpgrade(0)).toBe('')
     })
   })
@@ -430,19 +539,12 @@ describe('Atoms.vue', () => {
   // DEBUG
   describe('resetAtoms', () => {
     it('reset atoms to 0', () => {
-      wrapper.setData({ atomsNumber: 100 })
-      expect(wrapper.vm.atomsNumber).toEqual(100)
+      atomStore.atomsNumber = 100
+      expect(atomStore.atomsNumber).toEqual(100)
       wrapper.vm.resetAtoms()
-      expect(wrapper.vm.atomsNumber).toEqual(0)
+
+      expect(atomStore.atomsNumber).toEqual(0)
     })
   })
 
-  // HOOKS
-  describe('created', () => {
-    it('trigger tickActions every second', async () => {
-      wrapper.setData({ tickActivated: true })
-      jest.runTimersToTime(1500)
-      await expect(wrapper.vm.atomsNumber).toEqual(1)
-    })
-  })
 })
