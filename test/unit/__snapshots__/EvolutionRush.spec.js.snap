@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EvolutionRush.vue isDisplayed should render if displayed 1`] = `
+<div
+  class="rush"
+  style="top: 5%; left: 5%;"
+/>
+`;
+
+exports[`EvolutionRush.vue isDisplayed shouldn’t render if not displayed 1`] = `<!---->`;
+
+exports[`EvolutionRush.vue should have correct starting data 1`] = `
+Object {
+  "left": 5,
+  "top": 5,
+}
+`;

@@ -103,7 +103,7 @@ exports[`Atoms.vue should render correct contents 1`] = `
        
       <h2>
         <span>
-          0 Atoms
+          0 Atom
         </span>
       </h2>
        

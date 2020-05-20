@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="flex-row app-container">
+      <EvolutionRush />
       <div class="flex-col main-window">
         <Header></Header>
         <Atoms @clicked="clicks++" @unlockKeystroke="unlockKeystroke(65)" ref="atoms"></Atoms>
@@ -20,13 +21,14 @@ import Atoms from './components/Atoms'
 import Goal from './components/Goal'
 import Debug from './components/Debug'
 import Changelog from './components/Changelog'
+import EvolutionRush from './components/EvolutionRush'
 
 export default {
   name: 'Global',
   data() {
     return { clicks: 0, keyStrokes: 0, era: 1, keyStrokesAllowed: [] }
   },
-  components: { Goal, Debug, Header, Atoms, Changelog },
+  components: { Goal, Debug, Header, Atoms, Changelog, EvolutionRush },
   created() {
     document.onkeydown = evt => {
       // Key: A
